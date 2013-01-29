@@ -33,6 +33,7 @@ the event class name is added to field container when it's triggered  */
 .disabled .disabled,
 .checked .checked,
 .unchecked .unchecked,
+.selected .selected,
 .indeterminate .indeterminate,
 .invalid .invalid,
 .valid .valid,
@@ -107,6 +108,24 @@ When an input field is clicked,
 </div>
 ```
 
+### selected 
+
+
+```html
+<div>   
+  <select required>
+    <option value="">Select 1 of the options</option>
+    <option value="a">Option A</option>
+    <option value="b">Option B</option>
+  </select>
+  
+ 
+  <div class="smartform">
+    <div class="required"> You must choose 1 of the options </div>
+    <div class="selected"> Thank you for your selection </div>
+  </div>  
+</div>
+```
 
 ### pattern 
 You can validate the value with pattern attribute. If the value passes the validation, a class name **"valid"** 
