@@ -13,6 +13,7 @@
     - test for textarea / select
     - clone base notifications
     - allow override notifcations
+    - select
     - form submit validation
 
   

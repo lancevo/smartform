@@ -1,16 +1,21 @@
 /* base css for smartform */
+/* hide all messages */
 .smartform > div {
   display: none;
 }
 
+/* supported events, 
+the event class name is added to field container when it's triggered  */
 .hover .hover,
 .focus .focus,
 .target .target,
 .enabled .enabled,
+.visited .visited,
 .disabled .disabled,
 .checked .checked,
+.unchecked .unchecked,
+.selected .selected,
 .indeterminate .indeterminate,
-.blur .blur,
 .invalid .invalid,
 .valid .valid,
 .required .required,
@@ -22,12 +27,6 @@
 /* customize your css here*/
 
 
-form > div {
-  margin-bottom:10px;
-}
 
 
-.smartform .required, .smartform .invalid {
-  color:#fa82ac;
-}
 

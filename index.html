@@ -6,6 +6,14 @@
       
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/smartform.css">
+        <style>
+          form > div {
+            margin-bottom:10px;
+          }
+          .smartform .required, .smartform .invalid {
+            color:#fa82ac;
+          }
+        </style>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script src="js/smartform.js"></script>
 
@@ -14,39 +22,60 @@
       
       <form>
 
-        <div>
-          <label>Validation: Required</label><br>
-          <input type="text" required >
-          <div class="smartform">
-            <div class="hover">Hover message</div>
-            <div class="focus">Focus message when the field is in focus</div>
-            <div class="required">This field is required.</div>
-          </div>
-        </div>
+<div> <!-- this element is a field container, being used by smartform to add class names -->
+  <label for="city">City name</label>
+  
+  <input id="city" type="text" name="city">
+  
+  <div class="smartform">
+    <div class="focus"> Please enter the city name of your birthplace </div>
+  </div>
+</div>
 
-        <div>
-          <label>Validation: Required, Pattern</label><br>
-          <input type="text" required pattern="\d{3}">
-          <div class="smartform">
-            <div class="focus">Enter 3 digits only</div>
-            <div class="required">This field is required.</div>
-            <div class="invalid">The value is not valid. Please enter again 3 digits only</div>
-          </div>
-        </div>
+<div> <!-- this element is a field container, being used by smartform to add class names -->
+  <label for="city">City name</label>
+  
+  <input id="city" type="text" name="city" required>
+  
+  <div class="smartform">
+    <div class="focus"> Please enter the city name of your birthplace </div>
+    <div class="required"> You must enter the city name </div>
+  </div>
+</div>
 
-        <div>
-          <label>Validation: Required </label><br>
-          <select required>
-            <option value="">Choose 1 of these options</option>
-            <option value="A">Option A</option>
-            <option value="B">Option B</option>
-            <option value="C">Option C</option>
-          </select>
-          <div class="smartform">
-            <div class="focus">You must choose one of these option</div>
-            <div class="required">This field is required.</div>
-          </div>
-        </div>
+<div> 
+  <label for="pizza">What pizza do you like</label>
+  
+  <input id="pizza" type="radio" name="pizza" value="cheese"> Cheese  
+  <input id="pizza" type="radio" name="pizza" value="pepperoni"> Pepperoni
+  <input id="pizza" type="radio" name="pizza" value="bacon"> Bacon
+  
+  <div class="smartform">
+    <div class="visited"> Thank you for your selection. </div>
+  </div>
+</div>
+
+<div>   
+  <input type="checkbox" name="agree" required> You must agree to blah blah blah.  
+  <div class="smartform">
+    <div class="unchecked"> You must check this box before proceeding to the next step </div>
+  </div>  
+</div>
+
+<div>   
+  <select required>
+    <option value="">Select 1 of the options</option>
+    <option value="a">Option A</option>
+    <option value="b">Option B</option>
+  </select>
+  
+ 
+  <div class="smartform">
+    <div class="required"> You must choose 1 of the options </div>
+    <div class="selected"> Thank you for your selection </div>
+  </div>  
+</div>
+
 
         <input type="submit" value="Submit">
 
