@@ -1,0 +1,33 @@
+/* base css for smartform */
+.smartform > div {
+  display: none;
+}
+
+.hover .hover,
+.focus .focus,
+.target .target,
+.enabled .enabled,
+.disabled .disabled,
+.checked .checked,
+.indeterminate .indeterminate,
+.blur .blur,
+.invalid .invalid,
+.valid .valid,
+.required .required,
+.in-range .in-range,
+.out-of-range .out-of-range {
+  display:block;
+}
+
+/* customize your css here*/
+
+
+form > div {
+  margin-bottom:10px;
+}
+
+
+.smartform .required, .smartform .invalid {
+  color:#fa82ac;
+}
+
