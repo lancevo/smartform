@@ -7,9 +7,11 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/smartform.css">
         <style>
-          form > div {
-            margin-bottom:10px;
+          label {
+            display:block;
+            margin-bottom: 20px;
           }
+          
           .smartform .required, .smartform .invalid {
             color:#fa82ac;
           }
@@ -21,60 +23,88 @@
     <body>
       
       <form>
+        <div class="submit-invalid">Uh oh! Please correct the errors below</div>
 
-<div> <!-- this element is a field container, being used by smartform to add class names -->
-  <label for="city">City name</label>
-  
-  <input id="city" type="text" name="city">
-  
-  <div class="smartform">
-    <div class="focus"> Please enter the city name of your birthplace </div>
-  </div>
-</div>
+<label>
+    <span class="label">optional</span>
+    <input type="text" name="hey"  >
+    <span class="smartform">
+      <span class="focus"> focus </span>
+      <span class="optional"> optional </span>
+     
+    </span>
+  </label>
+    
+  <label>
+    <span class="label">Text</span>
+    <input type="text" id="t1" required pattern="[A-Za-z ]+" >
+    <span class="smartform">
+      <span class="focus"> focus </span>
+      <span class="optional"> optional </span>
+      <span class="required"> required </span>
+      <span class="valid"> valid </span>
+      <span class="unchecked"> Unchecked </span>
+      <span class="checked"> Checked</span>
+      <span class="indeterminate"> Indeterminate</span>
+    </span>
+  </label>
+    
+  <label>
+    <span class="label">Checkbox: <a href="#" id="ind">Indeterminate?</a> </span>
+    <input id="cb1" type="checkbox" required title="this is a title?">
+    <span class="smartform">
+      <span class="focus"> focus </span>
+      <span class="optional"> optional </span>
+      <span class="required"> required </span>
+      <span class="valid"> valid </span>
+      <span class="unchecked"> Unchecked </span>
+      <span class="checked"> Checked</span>
+      <span class="indeterminate"> Indeterminate</span>
+    </span>
+    <script>
+      $("#ind").click(function(ev){
+        ev.preventDefault();
+        var el = $("#cb1");
+        el.prop("indeterminate", !el.prop("indeterminate"));
+      })
+    </script>
+  </label>
 
-<div> <!-- this element is a field container, being used by smartform to add class names -->
-  <label for="city">City name</label>
+  <label>
+    <span class="label">Radio</span>
+    <input id="pizza" type="radio" name="pizza" value="cheese"   title="got cheese?"> Cheese  
+    <input id="pizza" type="radio" name="pizza" value="pepperoni" required title="got pep?"> Pepperoni
+    <input id="pizza" type="radio" name="pizza" value="bacon"  title="got bacon?"> Bacon
+    <span class="smartform">
+      <span class="focus"> focus </span>
+      <span class="optional"> optional </span>
+      <span class="required"> required </span>
+      <span class="valid"> valid </span>
+      <span class="unchecked"> Unchecked </span>
+      <span class="checked"> Checked</span>
+      <span class="indeterminate"> Indeterminate</span>
+    </span>
+  </label>  
   
-  <input id="city" type="text" name="city" required>
-  
-  <div class="smartform">
-    <div class="focus"> Please enter the city name of your birthplace </div>
-    <div class="required"> You must enter the city name </div>
-  </div>
-</div>
 
-<div> 
-  <label for="pizza">What pizza do you like</label>
-  
-  <input id="pizza" type="radio" name="pizza" value="cheese"> Cheese  
-  <input id="pizza" type="radio" name="pizza" value="pepperoni"> Pepperoni
-  <input id="pizza" type="radio" name="pizza" value="bacon"> Bacon
-  
-  <div class="smartform">
-    <div class="visited"> Thank you for your selection. </div>
-  </div>
-</div>
-
-<div>   
-  <input type="checkbox" name="agree" required> You must agree to blah blah blah.  
-  <div class="smartform">
-    <div class="unchecked"> You must check this box before proceeding to the next step </div>
-  </div>  
-</div>
-
-<div>   
-  <select required>
-    <option value="">Select 1 of the options</option>
-    <option value="a">Option A</option>
-    <option value="b">Option B</option>
-  </select>
-  
- 
-  <div class="smartform">
-    <div class="required"> You must choose 1 of the options </div>
-    <div class="selected"> Thank you for your selection </div>
-  </div>  
-</div>
+  <label>
+    <span class="label">Select</span>
+    <select required>
+      <option value="">Select 1 of the options</option>
+      <option value="a">Option A</option>
+      <option value="b">Option B</option>
+    </select>
+    <span class="smartform">
+      <span class="focus"> focus </span>
+      <span class="optional"> optional </span>
+      <span class="required"> required </span>
+      <span class="valid"> valid </span>
+      <span class="unchecked"> Unchecked </span>
+      <span class="checked"> Checked</span>
+      <span class="indeterminate"> Indeterminate</span>
+      <span class="selected"> Selected </span>
+    </span>
+  </label>  
 
 
         <input type="submit" value="Submit">

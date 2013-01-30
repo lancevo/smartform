@@ -1,26 +1,20 @@
 /* base css for smartform */
 /* hide all messages */
-.smartform > div {
+form .submit-invalid, 
+.smartform > * {
   display: none;
 }
 
-/* supported events, 
+/* supported events,
+ 
 the event class name is added to field container when it's triggered  */
-.hover .hover,
 .focus .focus,
-.target .target,
-.enabled .enabled,
-.visited .visited,
-.disabled .disabled,
 .checked .checked,
 .unchecked .unchecked,
-.selected .selected,
-.indeterminate .indeterminate,
-.invalid .invalid,
-.valid .valid,
 .required .required,
-.in-range .in-range,
-.out-of-range .out-of-range {
+.valid .valid,
+.invalid .invalid,
+.submit-invalid .submit-invalid {
   display:block;
 }
 
