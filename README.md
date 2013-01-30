@@ -8,38 +8,42 @@ Extremely easy to customize your messages.
 **prerequisite: jQuery 1.7+**
 
 
-### supporting events
-It supports common JavaScript events such as **mouseover, mouseout, focusin, focusout, blur, change, keyup**. 
-Smartform translates the JavaScript events into a meaningful class names based on the action, 
-and adds these class names to the input *field container*. <br/>
-These event class names are in the css below.
+
 
 ### basic stylesheet
-Hide the messages on page load, and show them when a class is add to the *field container*
+
+Depends on the action and input type, these classes will be added to input container: 
+
+- **.visited** : have clicked on this input
+- **.focus** : the input is in focus, and removed when it's out of focus 
+- **.checked** : one of radio buttons or a checkbox is checked  
+- **.unchecked** : all of radio buttons or a checkbox is unchecked
+- **.required** : (input field must have "required" attribute) the value is empty or is not checked
+- **.valid** : entered value is passed the pattern test
+- **.invalid** :  entered value is not passed the pattern test
+
+
+These 2 classes are added to the **&lt;form&gt; element when the form is submitted:
+
+- **.submit-invalid** : one or more input fields failed validation
+- **.submit-invalid** : passed the validation
 
 ```css
 /* hide all messages */
-.smartform > div {
+form .submit-invalid, 
+.smartform > * {
   display: none;
 }
 
 /* supported events, 
 the event class name is added to field container when it's triggered  */
-.hover .hover,
 .focus .focus,
-.target .target,
-.enabled .enabled,
-.visited .visited,
-.disabled .disabled,
 .checked .checked,
 .unchecked .unchecked,
-.selected .selected,
-.indeterminate .indeterminate,
-.invalid .invalid,
-.valid .valid,
 .required .required,
-.in-range .in-range,
-.out-of-range .out-of-range {
+.valid .valid,
+.invalid .invalid,
+.submit-invalid .submit-invalid {
   display:block;
 }
 ```
