@@ -23,7 +23,7 @@ Depends on the action and input type, these classes will be added to input conta
 - **.invalid** :  entered value is not passed the pattern test
 
 
-These 2 classes are added to the **&lt;form&gt; element when the form is submitted:
+These 2 classes are added to the **&lt;form&gt;** element when the form is submitted:
 
 - **.submit-invalid** : one or more input fields failed validation
 - **.submit-invalid** : passed the validation
@@ -36,7 +36,7 @@ form .submit-invalid,
 }
 
 /* supported events, 
-the event class name is added to field container when it's triggered  */
+the event class name is added to input field container when it's triggered  */
 .focus .focus,
 .checked .checked,
 .unchecked .unchecked,
@@ -50,36 +50,44 @@ the event class name is added to field container when it's triggered  */
 
 ### focus event
 
-The *.focus* message is shown when you click on the input field or when the element is focused. 
-Because a class name **focus** is added to the field container. Once it's out of focus, the class is removed from the field container.
+The *.focus* is added to input container when the element is focused. Once it's out of focus, 
+the class is removed from the input container.
+
+input container is usually a parent element, however you can target input container to any element 
+by adding attribute *data-smartform* to to the input field  
 
 ```html
-<div> <!-- this element is a field container, being used by smartform to add class names -->
-  <label for="city">City name</label>
-  
-  <input id="city" type="text" name="city">
-  
+<div> <!-- default input container, when it's in focus it will have <div class="focus">  -->
+  <label for="name">Your name</label>
+  <input id="name" type="text" name="name">
   <div class="smartform">
-    <div class="focus"> Please enter the city name of your birthplace </div>
+    <div class="focus"> Please enter your name </div> <!-- html elements go here for when it's in focus --> 
   </div>
 </div>
 ```
 
 ### required 
+add **required** attribute to the input field to make it a required field <br>
+works with *input, select, textarea* elements. <br>
 
-add **required** to the *input* field to make it a required field <br>
-works with *input[text, checkbox, tel..], select, textarea* elements. <br>
-For *radio* buttons, make sure one of the radio is checked. 
 
 ```html
-<div> <!-- this element is a field container, being used by smartform to add class names -->
-  <label for="city">City name</label>
-  
-  <input id="city" type="text" name="city" required>
-  
+<div> 
+  <label for="name">Your name</label>
+  <input id="name" type="text" name="name" required> <!-- required attribute is added to the input field -->
   <div class="smartform">
-    <div class="focus"> Please enter the city name of your birthplace </div>
-    <div class="required"> You must enter the city name </div>
+    <div class="focus"> Please enter your name </div> <!-- html elements go here for when it's in focus --> 
+    <div class="required"> This field is required, please enter your name. </div> <!-- required error message when value is empty -->
+  </div>
+</div>
+
+<div> 
+  <label for="pizza">What pizza do you like</label>
+  <input id="pizza" type="radio" name="pizza" value="cheese" required> Cheese  
+  <input id="pizza" type="radio" name="pizza" value="pepperoni"> Pepperoni
+  <input id="pizza" type="radio" name="pizza" value="bacon"> Bacon
+  <div class="smartform">
+     <div class="required"> This field is required</div> <!-- required error message when value is empty -->
   </div>
 </div>
 ```
@@ -87,16 +95,13 @@ For *radio* buttons, make sure one of the radio is checked.
 ### visited
 
 When an input field is clicked, 
+
 ```html
 <div> 
-  <label for="pizza">What pizza do you like</label>
-  
-  <input id="pizza" type="radio" name="pizza" value="cheese"> Cheese  
-  <input id="pizza" type="radio" name="pizza" value="pepperoni"> Pepperoni
-  <input id="pizza" type="radio" name="pizza" value="bacon"> Bacon
-  
+  <label for="name">Your name</label>
+  <input id="name" type="text" name="name" > 
   <div class="smartform">
-    <div class="visited"> Thank you for your selection. </div>
+    <div class="visited"> You already clicked on this input</div>
   </div>
 </div>
 ```
@@ -104,26 +109,33 @@ When an input field is clicked,
 ### checked / unchecked
 
 ```html
-<div>   
-  <input type="checkbox" name="agree" required> You must agree to blah blah blah.  
+<div>
+  <input id="pizza" type="radio" name="pizza" value="cheese" required> Cheese  
+  <input id="pizza" type="radio" name="pizza" value="pepperoni"> Pepperoni
+  <input id="pizza" type="radio" name="pizza" value="bacon"> Bacon
   <div class="smartform">
-    <div class="unchecked"> You must check this box before proceeding to the next step </div>
+     <div class="checked"> Delicious! </div>
+     <div class="unchecked"> Pick your topping </div> 
+  </div>
+  
+  <input type="checkbox" name="agree"> Sign up for promotions  
+  <div class="smartform">
+    <div class="checked"> Thank you! Delicious deals are coming to your inbox.</div>
+    <div class="unchecked"> Check this box for delicious promotions. </div>
   </div>  
 </div>
 ```
 
 ### selected 
 
-
 ```html
 <div>   
   <select required>
-    <option value="">Select 1 of the options</option>
-    <option value="a">Option A</option>
-    <option value="b">Option B</option>
+    <option value="">Delivery Option:</option>
+    <option value="a">Carry out</option>
+    <option value="b">Home delivery</option>
   </select>
   
- 
   <div class="smartform">
     <div class="required"> You must choose 1 of the options </div>
     <div class="selected"> Thank you for your selection </div>
@@ -132,11 +144,17 @@ When an input field is clicked,
 ```
 
 ### pattern 
-You can validate the value with pattern attribute. If the value passes the validation, a class name **"valid"** 
-is added to the field container. Otherwise a class name **"invalid"** is added if it fails the validation.
+Smartform validates an input based on the value in **pattern** attribute. If the value passes the validation, a class name **.valid** 
+is added to the input container. Otherwise a class name **.invalid** is added if it fails the validation. *Empty value is tested for pattern.*
 
-It accepts regular expression, for more common patterns see this page [http://html5pattern.com/](http://html5pattern.com/). 
-It's super easy.
+
+Some common patterns are:
+  Letters and spaces only: [A-Za-z ]+
+  Alphanumeric: [A-Za-z0-9]+
+  Credit card numbers (13 to 16 digits): [0-9]{13,16}
+  
+For more patterns see this page [http://html5pattern.com/](http://html5pattern.com/). 
+
 
 ```html
 <div> <!-- this element is a field container, being used by smartform to add class names -->
