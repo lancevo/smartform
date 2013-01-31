@@ -149,6 +149,7 @@ is added to the input container. Otherwise a class name **.invalid** is added if
 
 
 Some common patterns are:
+
   Letters and spaces only: [A-Za-z ]+
   Alphanumeric: [A-Za-z0-9]+
   Credit card numbers (13 to 16 digits): [0-9]{13,16}
@@ -168,6 +169,46 @@ For more patterns see this page [http://html5pattern.com/](http://html5pattern.c
 </div>
 ```
 
+### data-smartform
+
+By default, smartform will use input's parent element is the input container. 
+It can be customized by adding **data-smartform** attribute to the input field, 
+so it gives your the flexibility to customize your messages in anyways you want.
+
+*smartform traverses up for the id or class name in **data-smartform** attribute* 
+
+```html
+<div class="outer-parent">
+  <div class="left-column">
+    <div class="default"> default message</div>
+    <div class="visited"> this message appears after the input is clicked</div>
+  </div>
+  <div class="right-column">
+    <label>
+      Enter your name: 
+      <input name="name" data-smartform=".outer-parent">
+    </label>
+  </div>
+</div>
+```
+
+
+```css
+/* use css to manipulate the messages meet your need */
+
+/* hide the .left-column visited message when the page is loaded */
+.outer-parent .visited,
+/* hide the .left-column default message when the input field is clicked */
+.outer-parent.visited .default
+{
+  display:none
+}
+
+/* show the .left-column visited message after input field is clicked*/
+.outer-parent.visited .visited {
+  display:block;
+}
+```
 
 
 
