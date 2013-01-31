@@ -28,7 +28,7 @@ $.fn.smartform = function() {
       // html5 browser validator
       checkValidity = typeof document.createElement( 'input' ).checkValidity === 'function';
 
-  $form.attr('novalidate','novalidate')
+  //$form.attr('novalidate','novalidate')
 
   function validateField(ev){
     ev.stopPropagation();
