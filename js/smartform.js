@@ -8,9 +8,11 @@
 */
 
 
+
 // a helper to add/remove classes to input container
 // @param removeClasses is optional, if undefined it'll be the same as addClasses
 $.fn.yayNay = function(condition, addClasses, removeClasses) {
+  "use strict;"
   var el = $(this),
       removeClasses = typeof removeClasses === 'undefined' ? addClasses : removeClasses
       ;
@@ -23,6 +25,7 @@ $.fn.yayNay = function(condition, addClasses, removeClasses) {
 }
 
 $.fn.smartform = function() {
+  "use strict;"
   // customize classes for input field container
   var $form = $(this),
       // html5 browser validator
@@ -31,6 +34,7 @@ $.fn.smartform = function() {
   //$form.attr('novalidate','novalidate')
 
   function validateField(ev){
+
     ev.stopPropagation();
     var el = $(this),
         elContainer = el.attr('data-smartform') ? el.closest( el.attr('data-smartform') ) : el.parent(),
@@ -43,8 +47,13 @@ $.fn.smartform = function() {
         isSelect = el.is('select'),
         isTextarea = el.is('textarea'),
 
-        isValid = pattern ? pattern.test(value) : true 
+        isValid = true
         ;
+
+    if (pattern) {
+      isValid = pattern.test(value)
+    }
+    
 
     // visited
     // add .visited if it doesn't have it
@@ -57,9 +66,6 @@ $.fn.smartform = function() {
             break
       
       case 'focusout': 
-      case 'change'  :
-      case 'blur'    :
-      case 'select'  : 
             // required
             elContainer.removeClass('focus')
 
@@ -84,16 +90,18 @@ $.fn.smartform = function() {
                          .yayNay( pattern && !isValid, 'invalid' )
             }
             break
+
     }
  
   } // validateField
 
 
-  $form.on("blur change focus focusin focusout select",":input", validateField)
+  $form.on("focusin focusout",":input", validateField)
 
   $form.submit( function(ev){
+    console.log('submit')
     var isValidated = true;
-    
+
     $form.find(":input").each(function(){
       var el = $(this),
           elContainer = el.attr('data-smartform') ? el.closest( el.attr('data-smartform') ) : el.parent();
@@ -105,6 +113,8 @@ $.fn.smartform = function() {
       }
     })
 
+
+
     if (!isValidated) {
       $form.addClass('submit-invalid')
       return false
@@ -114,13 +124,3 @@ $.fn.smartform = function() {
   }) // submit
 
 }; // smartform
-
-
-
-
-
-
-
-	
-
-
