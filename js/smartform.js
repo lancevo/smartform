@@ -53,6 +53,10 @@ $.fn.smartform = function() {
     if (pattern) {
       isValid = pattern.test(value)
     }
+
+    if (el.attr('type')=='submit' || el.attr('type')=='reset' || el.attr('type')=='button') {
+      return;
+    }
     
 
     // visited
