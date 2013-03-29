@@ -1,137 +1,130 @@
-
 <!DOCTYPE html>
-    <head>
-    	<title>SmartForm - web form validation</title>
-        <meta charset="utf-8">
-      
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/smartform.css">
-        <style>
-          label {
-            display:block;
-            margin-bottom: 20px;
-          }
-          
-          .smartform .required, .smartform .invalid {
-            color:#fa82ac;
-          }
-        </style>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script src="js/smartform.js"></script>
+<html>
+<head>
+  <title>smartform demo</title>
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/foundation.min.css" rel="stylesheet">
 
-    </head>
-    <body>
-      
+  <link href="css/smartform.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="js/smartform.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $("form").smartform();
+    })
+  </script>
+
+</head>
+<body>
+  <div class="row">
+    <div class="large-6 centered columns">
+      <h2>Demo basic</h2>
       <form>
-        <div class="submit-invalid">Uh oh! Please correct the errors below</div>
+        <h3 class="submit-invalid">Oops! Please correct the fields below:</h3>
+        <p/>
+        <div class="row">
+          <label class="large-5 columns" for="name"> Name </label>
+          <div class="large-7 columns">  
+            <input name="name" pattern="^[A-z\s]+$" id="name" required> 
+            <div class="smartform">
+              <div class="focus">This message show when the field in focus.</div>
+              <div class="required">This is a required field.</div>
+              <div class="pattern-invalid">Oops. You have entered non-alphabet character.</div>
+            </div><!-- smartform -->
+          </div> <!-- large-7 columns -->
+        </div>
 
-<label>
-    <span class="label">optional</span>
-    <input type="text" name="hey"  >
-    <span class="smartform">
-      <span class="focus"> focus </span>
-      <span class="optional"> optional </span>
-     
-    </span>
-  </label>
-    
-  <label>
-    <span class="label">Text</span>
-    <input type="text" id="t1" required pattern="[A-Za-z ]+" >
-    <span class="smartform">
-      <span class="focus"> focus </span>
-      <span class="optional"> optional </span>
-      <span class="required"> required </span>
-      <span class="valid"> valid </span>
-      <span class="unchecked"> Unchecked </span>
-      <span class="checked"> Checked</span>
-      <span class="indeterminate"> Indeterminate</span>
-    </span>
-  </label>
-    
-  <label>
-    <span class="label">Checkbox: <a href="#" id="ind">Indeterminate?</a> </span>
-    <input id="cb1" type="checkbox" required title="this is a title?">
-    <span class="smartform">
-      <span class="focus"> focus </span>
-      <span class="optional"> optional </span>
-      <span class="required"> required </span>
-      <span class="valid"> valid </span>
-      <span class="unchecked"> Unchecked </span>
-      <span class="checked"> Checked</span>
-      <span class="indeterminate"> Indeterminate</span>
-    </span>
-    <script>
-      $("#ind").click(function(ev){
-        ev.preventDefault();
-        var el = $("#cb1");
-        el.prop("indeterminate", !el.prop("indeterminate"));
-      })
-    </script>
-  </label>
+        
 
-  <label>
-    <span class="label">Radio</span>
-    <input id="pizza" type="radio" name="pizza" value="cheese"   title="got cheese?"> Cheese  
-    <input id="pizza" type="radio" name="pizza" value="pepperoni" required title="got pep?"> Pepperoni
-    <input id="pizza" type="radio" name="pizza" value="bacon"  title="got bacon?"> Bacon
-    <span class="smartform">
-      <span class="focus"> focus </span>
-      <span class="optional"> optional </span>
-      <span class="required"> required </span>
-      <span class="valid"> valid </span>
-      <span class="unchecked"> Unchecked </span>
-      <span class="checked"> Checked</span>
-      <span class="indeterminate"> Indeterminate</span>
-    </span>
-  </label>  
-  
+        <div class="row">
+          <label class="large-5 columns" for="password"> Password <br> <br>
+            <span>make sure to change type attribute to "password" to mask the characters<span>
+          </label>
+          <div class="large-7 columns">  
+          <input name="password"  required id="password"
+            data-pattern-uppercase="[A-Z]"
+            data-pattern-lowercase="[a-z]"
+            data-pattern-digit="\d"
+            data-pattern-symbol="[$%.#]"
+            data-pattern-nospace="^[\S]+$"
+            data-pattern-size="^.{6,10}$"
+            data-pattern-allow-chars="^[A-z0-9$%.#]+$">
 
-  <label>
-    <span class="label">Select</span>
-    <select required>
-      <option value="">Select 1 of the options</option>
-      <option value="a">Option A</option>
-      <option value="b">Option B</option>
-    </select>
-    <span class="smartform">
-      <span class="focus"> focus </span>
-      <span class="optional"> optional </span>
-      <span class="required"> required </span>
-      <span class="valid"> valid </span>
-      <span class="unchecked"> Unchecked </span>
-      <span class="checked"> Checked</span>
-      <span class="indeterminate"> Indeterminate</span>
-      <span class="selected"> Selected </span>
-    </span>
-  </label>  
+            <div class="smartform">
+              <div class="required">This field is required</div>
+              <ul class="validation">
+                <li class="pattern-uppercase"> At least 1 upper case letter </li>
+                <li class="pattern-lowercase"> At least 1 lower case letter </li>
+                <li class="pattern-digit"> At least 1 number </li>
+                <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
+                <li class="pattern-nospace"> No space </li>
+                <li class="pattern-size"> 6 to 10 characters </li>
+                <li class="pattern-allow-chars"> Valid characters </li>
+              </ul>
+            </div>
+          </div>
+        </div> <!-- /row -->
 
+        <div class="row">
+          <label class="large-5 columns" for="password-again"> Enter Password Again<br> <br>
+           
+          </label>
+          <div class="large-7 columns">  
+          <input name="password-verify"  required id="password-again"
+            data-smartform-match="password">
+
+            <div class="smartform">
+              <div class="required">This field is required</div>
+              <div class="matched">Password is matched</div>
+              <div class="not-matched">Password is not matched</div>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" > Checkbox  </label>
+          <div class="large-7 columns">  
+            <input name="choice1" type="checkbox" value="choice 1" > Choice 1 <br/>
+            <div class="smartform">
+              <div class="checked">checked</div>
+              <div class="not-checked">unchecked</div>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" > Required Checkbox  </label>
+          <div class="large-7 columns">  
+            <input required name="choice2" type="checkbox" value="choice 2" > Must check this box <br/>
+            <div class="smartform">
+              <div class="checked">checked</div>
+              <div class="not-checked">unchecked</div>
+              <div class="required">You must check this box</div>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" > Radio Buttons  </label>
+          <div class="large-7 columns">  
+            <input name="choice" type="radio" value="choice 1" > Choice 1 <br/>
+          <input name="choice" type="radio" value="choice 2"> Choice 2 <br/>
+          <input name="choice" type="radio" value="choice 2"> Choice 3 <br/>
+         
+          <div class="smartform">
+            <div class="checked">This field is checked</div>
+          </div>
+          </div>
+        </div> <!-- /row -->
 
         <input type="submit" value="Submit">
+      </form>
 
-    </form>
-    
-    <script>
-      $("form").smartform();
-    </script>   
-       
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
-mixpanel.init("860552ac5b70ef0eb7dfce231857c276");</script><!-- end Mixpanel -->
-    </body>
+      
+    </div> <!-- /.large6 -->
+  </div> <!-- /.row -->
+</body>
 </html>
-
-
-
 

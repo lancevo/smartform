@@ -177,8 +177,8 @@
         // It's only added to classes variable on *focusout* event          
         // 
         // ```html 
-        // <input name="password">
-        // <input name="password-verify" data-smartform-match="password">
+        //   <input name="password">  
+        //   <input name="password-verify" data-smartform-match="password">  
         // ```
         // the value of *data-smartform-match* can be an id, class, or input field name
         v.matched = function(reportNotMatched){
