@@ -1,130 +1,330 @@
-/* 
-  smartform
-  A plug-in to validate form fields. It utilizes HTML5 form field attributes. 
-  It adds necessasy classes to field container as, and so you can customize your messages 
+/*! 
+  # smartform
+  -----------
+  A very flexible jQuery plug-in to validate form fields. It validates input fields 
+  and adds classes to the input field's wrapper, so it makes it easy to style
+
   
   source: https://github.com/lancevo/smartform
-  // requires jQuery 1.7+
+ 
+  **requires jQuery 1.7+**
+
+  version 0.2
+
+  ###Features:
+
+  * super easy to customize messages
+  * check for required fields
+  * fields comparision
+  * field validator with Regular Expression
+  * Support multiple regular expressions for an input field
+
+  It doesn't support for onKeyUp, onKeyDown, and onKeyPressed, simply
+  it easily irritates user with constant showing and hiding messages, so these
+  events are removed. However, these events can be easily added to 
+  $form.on("... ") below.
+
+  smartform doesn't validate the form or input fields unless user clicks on 
+  the input fields or submit button. 
+
+ 
 */
 
 
-
-// a helper to add/remove classes to input container
-// @param removeClasses is optional, if undefined it'll be the same as addClasses
-$.fn.yayNay = function(condition, addClasses, removeClasses) {
+(function($){
   "use strict;"
-  var el = $(this),
-      removeClasses = typeof removeClasses === 'undefined' ? addClasses : removeClasses
-      ;
+  $.fn.smartform = function(){
+    return this.each(function(){
+      var form = $(this),
+          resetClasses = ' required checked not-checked matched not-matched pattern-valid pattern-invalid '
+          ;
 
-  condition ? 
-    el.addClass(addClasses) :
-    el.removeClass(removeClasses)
+      // turn off browser validator
+      form.attr('novalidate','novalidate')
 
-  return this;
-}
 
-$.fn.smartform = function() {
-  "use strict;"
-  // customize classes for input field container
-  var $form = $(this),
-      // html5 browser validator
-      checkValidity = typeof document.createElement( 'input' ).checkValidity === 'function';
+      form.on('submit', function(e){
+        
+        var isValidated = true;
 
-  //$form.attr('novalidate','novalidate')
+        form.find(":input").each(function(){
+          var el = $(this),
+              type = el.attr('type'),
+              wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+              v = Validate(el)
+              ;
 
-  function validateField(ev){
+          if (type =='submit' || type=='reset' || type=='button') {
+            return true;
+          }
 
-    ev.stopPropagation();
-    var el = $(this),
-        elContainer = el.attr('data-smartform') ? el.closest( el.attr('data-smartform') ) : el.parent(),
-        value = el.val().replace(/^\s+$/g,''), // remove empty spaces 
-        pattern = el.attr('pattern') ? new RegExp( el.attr('pattern') ) : undefined,
-        isRequired = el.attr('required'),
+          v.required().checked().matched().pattern();
 
-        isCheckbox = el.attr('type') === 'checkbox',
-        isRadio = el.attr('type') === 'radio',
-        isSelect = el.is('select'),
-        isTextarea = el.is('textarea'),
+          wrapper.removeClass(resetClasses + ' ' + v.getResetPatternClasses())
+               .addClass(v.getClasses());
 
-        isValid = true
-        ;
+          if (wrapper.hasClass('pattern-invalid') || wrapper.hasClass('required')) {
+            isValidated = false;
+          }
+        }) 
 
-    if (pattern) {
-      isValid = pattern.test(value)
-    }
+        if (!isValidated) {
+          form.addClass('submit-invalid');
+          return false;
+        } 
+        
+      })
 
-    if (el.attr('type')=='submit' || el.attr('type')=='reset' || el.attr('type')=='button') {
-      return;
-    }
-    
+      form.on('keyup change focusin focusout ',':input', function(ev){
+        var el = $(this),
+            // element's container that classes will be applied to 
+            wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+            v = Validate(el),
+            type = el.attr('type')
+            ;
 
-    // visited
-    // add .visited if it doesn't have it
-    elContainer.yayNay( !elContainer.hasClass('visited'), 'visited', '');
+        if (type =='submit' || type=='reset' || type=='button') {
+          return true;
+        }
 
-    // focus
-    switch (ev.type) {
-      case 'focusin' :
-            elContainer.addClass('focus')
-            break
-      
-      case 'focusout': 
-            // required
-            elContainer.removeClass('focus')
+        switch(ev.type) {
+          case 'keyup' :
+            v.matched().pattern(); 
+            break;
+          
+          case 'change' :
+            v.checked().required();
+            break;
 
-            if (isCheckbox || isRadio) {
-              var isChecked = el.is(':checked');
-                                  
-              if (isRadio) {
-                isChecked = $form.find('input[name="' + el.attr('name') + '"]').is(':checked');
-                $form.find('input[name="' + el.attr('name') + '"]').each(function(){
-                  if ($(this).attr('required')) {
-                    isRequired = true;
-                  }
-                })
+          case 'focusin': 
+            wrapper.addClass('focus');
+            break;
+
+          case 'focusout':
+            wrapper.removeClass('focus');
+            // matched(true) to make sure it adds .not-matched if values are not equal
+            v.required().matched(true);
+            break;
+        }
+
+        wrapper.removeClass(resetClasses + ' ' + v.getResetPatternClasses())
+               .addClass(v.getClasses());
+      })
+
+
+      // ##Validate
+      // An object has methods to validate input fields and return a string of classes
+      function Validate(el) {
+        var value = el.val(),
+            type = el.attr('type'), 
+            isRequired = el.attr('required'),
+            classes = '',
+            // reset wrapper classes everytime an event happen
+            resetPatternClasses = '',            
+            v = {} 
+            ;
+
+        // do not validate buttons
+        if (type =='submit' || type=='reset' || type=='button') {
+          return this;
+        }
+
+        // ### required()
+        // If an input field (except radio button) has a required attribute
+        // it validates the value whether it's empty or not checked,
+        // and adds class *.required* to classes variable.
+        //      
+        // **It doesn't validate radio buttons.** For radio buttons, just check
+        // one of the buttons to make it a required field. 
+        v.required = function(){
+          if (!isRequired) {
+            return this;
+          }
+
+          if (type === 'checkbox') {
+            classes += el.is(':checked') ? '' : ' required';
+          } else if (type !=='radio') {
+            // value has only spaces will treat it as an empty string
+            classes += value.replace(/^\s+$/g,'') === '' ? ' required' : ''; 
+          }
+
+          return this;
+        }
+
+        // ### checked()
+        // Validates a checkbox or radio button   
+        // If it's checked class *.checked* is added to classes variable
+        // Not checked, class *.not-checked* is added to classes variable
+        v.checked = function() {
+          var type = el.attr('type');
+
+          if (type !=='radio' && type !== 'checkbox') {
+            return this;
+          }
+
+          // if it's not checked, test all radio button with the same name  
+          var isChecked = el.is(':checked') || 
+                          form.find('input[name="' + el.attr('name') + '"]').is(':checked');
+
+          classes += isChecked ? ' checked' : ' not-checked';
+          return this;
+        }
+
+        // ### matched()
+        // Compares its value to the target element's value
+        // *reportNotMatched* (bool) - force to add class .not-matched to classes variable if
+        // both values are not equal, to show .not-matched when input field is blured.      
+        // It's only added to classes variable on *focusout* event          
+        // 
+        // ```html 
+        // <input name="password">
+        // <input name="password-verify" data-smartform-match="password">
+        // ```
+        // the value of *data-smartform-match* can be an id, class, or input field name
+        v.matched = function(reportNotMatched){
+          var matchEl = el.attr('data-smartform-match');
+
+          if (!matchEl || value==='') {
+            return this;
+          }
+
+          // it's a class or an id
+          if (matchEl.substr(0,1)==='.' || matchEl.substr(0,1)==='#') {
+            matchEl = $(matchEl)[0];
+          } else {
+            // it's a name of an input field
+            matchEl = form.find('[name="' + matchEl + '"]')[0];
+          }
+
+          if (!matchEl) {
+            classes += ' not-matched';
+            throw 'smartform data-smartform-match error: "' + el.attr('data-smartform-match') + '" is invalid';
+            return this;
+          }
+
+          if ($(matchEl).val() === value) {
+            classes += ' matched';
+          } else if (reportNotMatched) {
+            classes += ' not-matched';
+          }
+
+          return this;
+        }
+
+
+
+        // ### pattern()
+        // Validates pattern or data-pattern* attributes. 
+        //
+        // **Single pattern:**
+        //
+        // ```html 
+        // <div class="wrapper">  
+        //  <input type="text" pattern="^[A-z]+$" />
+        //  ...
+        // </div>
+        // ```
+        // It validates the pattern value and adds class *.pattern-valid* 
+        // to .wrapper if it's true, or class *.pattern-invalid* if it's 
+        // false  
+        // 
+        // 
+        // **Multiple patterns:**
+        //
+        // ```html
+        // <div class="wrapper">
+        //  <input name="name" required 
+        //    data-pattern-uppercase="[A-Z]"
+        //    data-pattern-lowercase="[a-z]"
+        //    data-pattern-digit="\d"
+        //    data-pattern-symbol="[$%.#]"
+        //    data-pattern-nospace="^[\S]+$"
+        //    data-pattern-size="^.{6,10}$"
+        //    data-pattern-allow-chars="^[A-z0-9$%.#]+$">
+        //  
+        //  <div class="smartforms">
+        //    <ul class="validations">
+        //      <li class="pattern-uppercase"> At least 1 upper case letter </li>
+        //      <li class="pattern-lowercase"> At least 1 lower case letter </li>
+        //      <li class="pattern-digit"> At least 1 number </li>
+        //      <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
+        //      <li class="pattern-nospace"> No space </li>
+        //      <li class="pattern-size"> 6 to 10 characters </li>
+        //      <li class="pattern-allow-chars"> Valid characters </li>
+        //    </ul>
+        //  </div>
+        // ```
+        //
+        // it validates each of the data-pattern[-name], if it passes the test 
+        // class .pattern[-name]-valid is added to .wrapper, otherwise class 
+        // .pattern[-name]-invalid is added to .wrapper
+        // 
+        // 
+        // *If both "pattern" and "data-pattern[-name]" attributes are present
+        // smartform will use attribute "pattern".*
+        v.pattern = function(){
+          
+          var pattern = el.attr('pattern') ? new RegExp( el.attr('pattern') ) : undefined,
+              isValid = ' pattern-valid',
+              hasPattern = false
+              ;
+
+          if (value ==='') {
+            return this;
+          }
+          if (pattern) {
+            classes += pattern.test(value) ?  ' pattern-valid' : ' pattern-invalid';
+          } else {
+            // get all data-smartform-pattern* attributes
+            for (var a = $(el)[0].attributes, i=0, j=a.length, p, s; i<j; i++) {
+              if (a[i].name.match(/^data-pattern.*$/)) {
+                // extract pattern name, data-smartform-pattern1 -> s = pattern1 
+                s = a[i].name.replace(/data-/,'');
+                p = new RegExp( el.attr(a[i].name) );
+                
+                if (p.test(value)) {
+                  classes += ' ' + s + '-valid';
+                } else {
+                  isValid = ' pattern-invalid';
+                  classes += ' ' + s + '-invalid';
+                }
+
+                resetPatternClasses += ' ' + s +'-valid' +
+                                            ' ' + s +'-invalid';
+                hasPattern = true;                                                       
               }
-
-              elContainer.yayNay( isChecked, 'checked' )
-                         .yayNay( !isChecked, 'unchecked' )
-                         .yayNay( isRequired && !isChecked, 'required')
-            } else {
-              elContainer.yayNay( isRequired && value==='', 'required')
-                         .yayNay( pattern && isValid, 'valid' )
-                         .yayNay( pattern && !isValid, 'invalid' )
             }
-            break
 
-    }
- 
-  } // validateField
+            // adds .pattern-valid if all patterns are passed or 
+            // .pattern-invalid if one of them is not
+            if (hasPattern) {
+              classes += isValid;
+            } 
+            
+          }
+
+          return this;
+        }
 
 
-  $form.on("focusin focusout",":input", validateField)
+        // ### getClasses()
+        // return a string of validated classes
+        v.getClasses = function() {
+          return classes;
+        }
 
-  $form.submit( function(ev){
-    console.log('submit')
-    var isValidated = true;
+        // ### getResetPatternClasses()
+        // return a string of all of pattern[-name]-valid and pattern[-name]-invalid
+        // to reset wrapper's classes.
+        v.getResetPatternClasses = function() {
+          return resetPatternClasses;
+        }
 
-    $form.find(":input").each(function(){
-      var el = $(this),
-          elContainer = el.attr('data-smartform') ? el.closest( el.attr('data-smartform') ) : el.parent();
+        return v;
+      }      
 
-      el.blur()
-      
-      if (elContainer.hasClass('invalid') || elContainer.hasClass('required')) {
-        isValidated = false;
-      }
+
+
     })
-
-
-
-    if (!isValidated) {
-      $form.addClass('submit-invalid')
-      return false
-    } else {
-      $form.addClass('submit-valid')
-    }
-  }) // submit
-
-}; // smartform
+  }
+})(jQuery);

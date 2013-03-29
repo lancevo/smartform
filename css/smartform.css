@@ -1,24 +1,86 @@
-/* base css for smartform */
-/* hide all messages */
+/* hide all errors, and all children elements of .smartform*/
 form .submit-invalid, 
 .smartform > * {
   display: none;
 }
 
-/* supported events,
- 
-the event class name is added to field container when it's triggered  */
 .focus .focus,
-.checked .checked,
-.unchecked .unchecked,
 .required .required,
-.valid .valid,
-.invalid .invalid,
-.submit-invalid .submit-invalid {
+.checked .checked,
+.not-checked .not-checked, 
+.matched .matched,
+.not-matched .not-matched, 
+.pattern-valid .pattern-valid, 
+.pattern-invalid .pattern-invalid,
+.submit-invalid .submit-invalid 
+{
   display:block;
 }
 
-/* customize your css here*/
+/* your css here */
+/* classes for multiple patterns */
+
+
+.row form .row {
+	margin-bottom: 15px;
+}
+label {
+	font-weight:bold;
+}
+label span {
+	font-size:9px;
+	font-weight:normal;
+}
+
+h3.submit-invalid {
+	color:brown;
+}
+
+/* always show the validation block */
+.smartform .validation {
+    display:block;
+}
+
+.required .required,
+.pattern-invalid .pattern-invalid {
+	color:red;
+}
+
+.pattern-uppercase-valid .pattern-uppercase,
+.pattern-lowercase-valid .pattern-lowercase,
+.pattern-digit-valid .pattern-digit,
+.pattern-symbol-valid .pattern-symbol,
+.pattern-nospace-valid .pattern-nospace,
+.pattern-size-valid .pattern-size,
+.pattern-allow-chars-valid .pattern-allow-chars 
+{
+  text-decoration: line-through;
+}
+
+/* for IE7, use background image instead of content */
+.validation {
+	list-style: none;
+}
+.validation li:before {
+	content: "\2610";
+	
+	line-height:6px;
+}
+
+.pattern-uppercase-valid .pattern-uppercase:before,
+.pattern-lowercase-valid .pattern-lowercase:before,
+.pattern-digit-valid .pattern-digit:before,
+.pattern-symbol-valid .pattern-symbol:before,
+.pattern-nospace-valid .pattern-nospace:before,
+.pattern-size-valid .pattern-size:before,
+.pattern-allow-chars-valid .pattern-allow-chars:before 
+{
+	content: "\2611";
+} 
+
+
+
+
 
 
 

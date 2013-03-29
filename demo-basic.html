@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>smartform demo</title>
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/foundation.min.css" rel="stylesheet">
+
+	<link href="css/smartform.css" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="js/smartform.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$("form").smartform();
+		})
+	</script>
+
+</head>
+<body>
+  <div class="row">
+    <div class="large-6 centered columns">
+      <h2>Demo basic</h2>
+    	<form>
+    		<h3 class="submit-invalid">Oops! Please correct the fields below:</h3>
+        <p/>
+        <div class="row">
+          <label class="large-5 columns" for="name"> Name </label>
+          <div class="large-7 columns">  
+            <input name="name" pattern="^[A-z\s]+$" id="name" required> 
+            <div class="smartform">
+              <div class="focus">This message show when the field in focus.</div>
+              <div class="required">This is a required field.</div>
+              <div class="pattern-invalid">Oops. You have entered non-alphabet character.</div>
+            </div><!-- smartform -->
+          </div> <!-- large-7 columns -->
+        </div>
+
+        
+
+        <div class="row">
+          <label class="large-5 columns" for="password"> Password <br> <br>
+            <span>make sure to change type attribute to "password" to mask the characters<span>
+          </label>
+          <div class="large-7 columns">  
+          <input name="password"  required id="password"
+            data-pattern-uppercase="[A-Z]"
+            data-pattern-lowercase="[a-z]"
+            data-pattern-digit="\d"
+            data-pattern-symbol="[$%.#]"
+            data-pattern-nospace="^[\S]+$"
+            data-pattern-size="^.{6,10}$"
+            data-pattern-allow-chars="^[A-z0-9$%.#]+$">
+
+            <div class="smartform">
+              <div class="required">This field is required</div>
+              <ul class="validation">
+                <li class="pattern-uppercase"> At least 1 upper case letter </li>
+                <li class="pattern-lowercase"> At least 1 lower case letter </li>
+                <li class="pattern-digit"> At least 1 number </li>
+                <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
+                <li class="pattern-nospace"> No space </li>
+                <li class="pattern-size"> 6 to 10 characters </li>
+                <li class="pattern-allow-chars"> Valid characters </li>
+              </ul>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" for="password-again"> Enter Password Again<br> <br>
+           
+          </label>
+          <div class="large-7 columns">  
+          <input name="password-verify"  required id="password-again"
+            data-smartform-match="password">
+
+            <div class="smartform">
+              <div class="required">This field is required</div>
+              <div class="matched">Password is matched</div>
+              <div class="not-matched">Password is not matched</div>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" > Checkbox  </label>
+          <div class="large-7 columns">  
+            <input name="choice1" type="checkbox" value="choice 1" > Choice 1 <br/>
+            <div class="smartform">
+              <div class="checked">checked</div>
+              <div class="not-checked">unchecked</div>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" > Required Checkbox  </label>
+          <div class="large-7 columns">  
+            <input required name="choice2" type="checkbox" value="choice 2" > Must check this box <br/>
+            <div class="smartform">
+              <div class="checked">checked</div>
+              <div class="not-checked">unchecked</div>
+              <div class="required">You must check this box</div>
+            </div>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <label class="large-5 columns" > Radio Buttons  </label>
+          <div class="large-7 columns">  
+            <input name="choice" type="radio" value="choice 1" > Choice 1 <br/>
+          <input name="choice" type="radio" value="choice 2"> Choice 2 <br/>
+          <input name="choice" type="radio" value="choice 2"> Choice 3 <br/>
+         
+          <div class="smartform">
+            <div class="checked">This field is checked</div>
+          </div>
+          </div>
+        </div> <!-- /row -->
+
+        <input type="submit" value="Submit">
+      </form>
+
+      
+    </div> <!-- /.large6 -->
+  </div> <!-- /.row -->
+</body>
+</html>
+
