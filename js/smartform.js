@@ -1,31 +1,29 @@
 /*! 
-  # smartform
-  -----------
-  A very flexible jQuery plug-in to validate form fields. It validates input fields 
-  and adds classes to the input field's wrapper, so it makes it easy to style
+#smartform
 
-  
-  source: https://github.com/lancevo/smartform
- 
-  **requires jQuery 1.7+**
+A very flexible jQuery plug-in to validate form fields. It validates input fields 
+and adds classes to the input field's wrapper, so it makes it easy to style
 
-  version 0.2
 
-  ###Features:
+source: https://github.com/lancevo/smartform
 
-  * super easy to customize messages
-  * check for required fields
-  * fields comparision
-  * field validator with Regular Expression
-  * Support multiple regular expressions for an input field
+**requires jQuery 1.7+**  
 
-  It doesn't support for onKeyUp, onKeyDown, and onKeyPressed, simply
-  it easily irritates user with constant showing and hiding messages, so these
-  events are removed. However, these events can be easily added to 
-  $form.on("... ") below.
+tested on: IE7+
 
-  smartform doesn't validate the form or input fields unless user clicks on 
-  the input fields or submit button. 
+version 0.2
+
+###Features:
+
+* super easy to customize messages
+* check for required fields
+* fields comparision
+* field validator with Regular Expression
+* Support multiple regular expressions for an input field
+
+
+smartform uses error approach method, so it doesn't validate 
+the form or input fields unless user activates an input field or submits the form. 
 
  
 */
