@@ -5,7 +5,7 @@ A very flexible jQuery plug-in to validate form fields. It validates input field
 and adds classes to the input field's wrapper, so it makes it easy to style
 
 
-source: https://github.com/lancevo/smartform
+source: https:// github.com/lancevo/smartform
 
 **requires jQuery 1.7+**  
 
@@ -149,7 +149,7 @@ the form or input fields unless user activates an input field or submits the for
           return this;
         }
 
-        // ### checked()
+        //### checked()
         // Validates a checkbox or radio button   
         // If it's checked class *.checked* is added to classes variable
         // Not checked, class *.not-checked* is added to classes variable
@@ -169,15 +169,16 @@ the form or input fields unless user activates an input field or submits the for
         }
 
         // ### matched()
+        // 
         // Compares its value to the target element's value
         // *reportNotMatched* (bool) - force to add class .not-matched to classes variable if
         // both values are not equal, to show .not-matched when input field is blured.      
         // It's only added to classes variable on *focusout* event          
         // 
-        // ```html 
-        //   <input name="password">  
-        //   <input name="password-verify" data-smartform-match="password">  
-        // ```
+        // 
+        //     <input name="password">  
+        //     <input name="password-verify" data-smartform-match="password">  
+        // 
         // the value of *data-smartform-match* can be an id, class, or input field name
         v.matched = function(reportNotMatched){
           var matchEl = el.attr('data-smartform-match');
@@ -213,46 +214,47 @@ the form or input fields unless user activates an input field or submits the for
 
         // ### pattern()
         // Validates pattern or data-pattern* attributes. 
-        //
+        // 
         // **Single pattern:**
-        //
-        // ```html 
-        // <div class="wrapper">  
-        //  <input type="text" pattern="^[A-z]+$" />
-        //  ...
-        // </div>
-        // ```
+        // 
+        //     <div class="wrapper">  
+        //       <input type="text" pattern="^[A-z]+$" />
+        //        ...
+        //     </div>
+        // 
         // It validates the pattern value and adds class *.pattern-valid* 
         // to .wrapper if it's true, or class *.pattern-invalid* if it's 
         // false  
         // 
         // 
         // **Multiple patterns:**
-        //
-        // ```html
-        // <div class="wrapper">
-        //  <input name="name" required 
-        //    data-pattern-uppercase="[A-Z]"
-        //    data-pattern-lowercase="[a-z]"
-        //    data-pattern-digit="\d"
-        //    data-pattern-symbol="[$%.#]"
-        //    data-pattern-nospace="^[\S]+$"
-        //    data-pattern-size="^.{6,10}$"
-        //    data-pattern-allow-chars="^[A-z0-9$%.#]+$">
         //  
-        //  <div class="smartforms">
-        //    <ul class="validations">
-        //      <li class="pattern-uppercase"> At least 1 upper case letter </li>
-        //      <li class="pattern-lowercase"> At least 1 lower case letter </li>
-        //      <li class="pattern-digit"> At least 1 number </li>
-        //      <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
-        //      <li class="pattern-nospace"> No space </li>
-        //      <li class="pattern-size"> 6 to 10 characters </li>
-        //      <li class="pattern-allow-chars"> Valid characters </li>
-        //    </ul>
-        //  </div>
-        // ```
-        //
+        // 
+        //     <div class="wrapper">  
+        //     <input name="name"  
+        //       data-pattern-uppercase="[A-Z]"  
+        //       data-pattern-lowercase="[a-z]"  
+        //       data-pattern-digit="\d"  
+        //       data-pattern-symbol="[$%.#]"  
+        //       data-pattern-nospace="^[\S]+$"  
+        //       data-pattern-size="^.{6,10}$"  
+        //       data-pattern-allow-chars="^[A-z0-9$%.#]+$"/>  
+        //   
+        //     <div class="smartforms">
+        //       <ul class="validations">
+        //         <li class="pattern-uppercase"> At least 1 upper case letter </li>
+        //         <li class="pattern-lowercase"> At least 1 lower case letter </li>
+        //         <li class="pattern-digit"> At least 1 number </li>
+        //         <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
+        //         <li class="pattern-nospace"> No space </li>
+        //         <li class="pattern-size"> 6 to 10 characters </li>
+        //         <li class="pattern-allow-chars"> Valid characters </li>
+        //       </ul>
+        //     </div>
+        //     ...
+        //     </div>
+        //   
+        // 
         // it validates each of the data-pattern[-name], if it passes the test 
         // class .pattern[-name]-valid is added to .wrapper, otherwise class 
         // .pattern[-name]-invalid is added to .wrapper
