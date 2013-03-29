@@ -1,31 +1,29 @@
 <!DOCTYPE html>  <html> <head>   <title>smartform.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               smartform.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cm">/*! </span>
-<span class="cm">  # smartform</span>
-<span class="cm">  -----------</span>
-<span class="cm">  A very flexible jQuery plug-in to validate form fields. It validates input fields </span>
-<span class="cm">  and adds classes to the input field&#39;s wrapper, so it makes it easy to style</span>
+<span class="cm">#smartform</span>
 
-<span class="cm">  </span>
-<span class="cm">  source: https://github.com/lancevo/smartform</span>
-<span class="cm"> </span>
-<span class="cm">  **requires jQuery 1.7+**</span>
+<span class="cm">A very flexible jQuery plug-in to validate form fields. It validates input fields </span>
+<span class="cm">and adds classes to the input field&#39;s wrapper, so it makes it easy to style</span>
 
-<span class="cm">  version 0.2</span>
 
-<span class="cm">  ###Features:</span>
+<span class="cm">source: https:// github.com/lancevo/smartform</span>
 
-<span class="cm">  * super easy to customize messages</span>
-<span class="cm">  * check for required fields</span>
-<span class="cm">  * fields comparision</span>
-<span class="cm">  * field validator with Regular Expression</span>
-<span class="cm">  * Support multiple regular expressions for an input field</span>
+<span class="cm">**requires jQuery 1.7+**  </span>
 
-<span class="cm">  It doesn&#39;t support for onKeyUp, onKeyDown, and onKeyPressed, simply</span>
-<span class="cm">  it easily irritates user with constant showing and hiding messages, so these</span>
-<span class="cm">  events are removed. However, these events can be easily added to </span>
-<span class="cm">  $form.on(&quot;... &quot;) below.</span>
+<span class="cm">tested on: IE7+</span>
 
-<span class="cm">  smartform doesn&#39;t validate the form or input fields unless user clicks on </span>
-<span class="cm">  the input fields or submit button. </span>
+<span class="cm">version 0.2</span>
+
+<span class="cm">###Features:</span>
+
+<span class="cm">* super easy to customize messages</span>
+<span class="cm">* check for required fields</span>
+<span class="cm">* fields comparision</span>
+<span class="cm">* field validator with Regular Expression</span>
+<span class="cm">* Support multiple regular expressions for an input field</span>
+
+
+<span class="cm">smartform uses error approach method, so it doesn&#39;t validate </span>
+<span class="cm">the form or input fields unless user activates an input field or submits the form. </span>
 
 <span class="cm"> </span>
 <span class="cm">*/</span>
@@ -151,11 +149,11 @@ Not checked, class <em>.not-checked</em> is added to classes variable</p>       
 both values are not equal, to show .not-matched when input field is blured. <br />
 It's only added to classes variable on <em>focusout</em> event          </p>
 
-<p><code>html 
-  &lt;input name="password"&gt; <br />
-  &lt;input name="password-verify" data-smartform-match="password"&gt; <br />
-</code>
-the value of <em>data-smartform-match</em> can be an id, class, or input field name</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">v</span><span class="p">.</span><span class="nx">matched</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">reportNotMatched</span><span class="p">){</span>
+<pre><code>&lt;input name="password"&gt;  
+&lt;input name="password-verify" data-smartform-match="password"&gt;  
+</code></pre>
+
+<p>the value of <em>data-smartform-match</em> can be an id, class, or input field name</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">v</span><span class="p">.</span><span class="nx">matched</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">reportNotMatched</span><span class="p">){</span>
           <span class="kd">var</span> <span class="nx">matchEl</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-smartform-match&#39;</span><span class="p">);</span>
 
           <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">matchEl</span> <span class="o">||</span> <span class="nx">value</span><span class="o">===</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span>
@@ -184,45 +182,42 @@ the value of <em>data-smartform-match</em> can be an id, class, or input field n
 
 <p><strong>Single pattern:</strong></p>
 
-<p>```html </p>
+<pre><code>&lt;div class="wrapper"&gt;  
+  &lt;input type="text" pattern="^[A-z]+$" /&gt;
+   ...
+&lt;/div&gt;
+</code></pre>
 
-<div class="wrapper">  
- <input type="text" pattern="^[A-z]+$" />
- ...
-</div>
-
-<p>```
-It validates the pattern value and adds class <em>.pattern-valid</em> 
+<p>It validates the pattern value and adds class <em>.pattern-valid</em> 
 to .wrapper if it's true, or class <em>.pattern-invalid</em> if it's 
 false  </p>
 
 <p><strong>Multiple patterns:</strong></p>
 
-<p>```html</p>
+<pre><code>&lt;div class="wrapper"&gt;  
+&lt;input name="name"  
+  data-pattern-uppercase="[A-Z]"  
+  data-pattern-lowercase="[a-z]"  
+  data-pattern-digit="\d"  
+  data-pattern-symbol="[$%.#]"  
+  data-pattern-nospace="^[\S]+$"  
+  data-pattern-size="^.{6,10}$"  
+  data-pattern-allow-chars="^[A-z0-9$%.#]+$"/&gt;  
 
-<div class="wrapper">
- <input name="name" required 
-   data-pattern-uppercase="[A-Z]"
-   data-pattern-lowercase="[a-z]"
-   data-pattern-digit="\d"
-   data-pattern-symbol="[$%.#]"
-   data-pattern-nospace="^[\S]+$"
-   data-pattern-size="^.{6,10}$"
-   data-pattern-allow-chars="^[A-z0-9$%.#]+$">
-
- <div class="smartforms">
-   <ul class="validations">
-     <li class="pattern-uppercase"> At least 1 upper case letter </li>
-     <li class="pattern-lowercase"> At least 1 lower case letter </li>
-     <li class="pattern-digit"> At least 1 number </li>
-     <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
-     <li class="pattern-nospace"> No space </li>
-     <li class="pattern-size"> 6 to 10 characters </li>
-     <li class="pattern-allow-chars"> Valid characters </li>
-   </ul>
- </div>
-
-<p>```</p>
+&lt;div class="smartforms"&gt;
+  &lt;ul class="validations"&gt;
+    &lt;li class="pattern-uppercase"&gt; At least 1 upper case letter &lt;/li&gt;
+    &lt;li class="pattern-lowercase"&gt; At least 1 lower case letter &lt;/li&gt;
+    &lt;li class="pattern-digit"&gt; At least 1 number &lt;/li&gt;
+    &lt;li class="pattern-symbol"&gt; At least 1 symbol of $ % . # &lt;/li&gt;
+    &lt;li class="pattern-nospace"&gt; No space &lt;/li&gt;
+    &lt;li class="pattern-size"&gt; 6 to 10 characters &lt;/li&gt;
+    &lt;li class="pattern-allow-chars"&gt; Valid characters &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+...
+&lt;/div&gt;
+</code></pre>
 
 <p>it validates each of the data-pattern[-name], if it passes the test 
 class .pattern[-name]-valid is added to .wrapper, otherwise class 

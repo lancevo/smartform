@@ -1,7 +1,5 @@
 demo [http://dev.lancevo.net/smartform/](http://dev.lancevo.net/smartform/)
-
 source annotation: [http://dev.lancevo.net/smartform/docs/smartform.html](http://dev.lancevo.net/smartform/docs/smartform.html)
-
 
 smartform
 =========
