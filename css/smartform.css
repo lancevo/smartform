@@ -54,7 +54,7 @@ h3.submit-invalid {
 .pattern-size-valid .pattern-size,
 .pattern-allow-chars-valid .pattern-allow-chars 
 {
-  text-decoration: line-through;
+  color:green;
 }
 
 /* for IE7, use background image instead of content */
