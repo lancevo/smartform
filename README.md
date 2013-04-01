@@ -45,7 +45,7 @@ field attributes
 
 ## required 
 
-To ensure the field is required. Class **.required** is added to the wrapper when the field's value is empty or has only spaces 
+To ensure the field is required. Class **.required** is added to the wrapper or parent element, which is <label> in this case,  when the field's value is empty or has only spaces 
 
 ```html
 <label> 
@@ -81,12 +81,12 @@ Now the wrapper is *#wrapper1* instead of parent element *.right*
 Compare values of the 2 fields, if they're both equal, class **.matched** is added to the current field's wrapper, otherwise **.not-matched** is added. The value of data-smartform-match attribute can be a field name, id, or a class.
 
 ```html
-<label>
+<label id="field1">
   Password <br>
   <input name="secret" type="password">
 </label>
 
-<label>
+<label id="field2">
   Enter password again: <br>
   <input data-smartform-match="secret" name="password-verify"  type="password">
   <div class="smartform">
@@ -95,6 +95,8 @@ Compare values of the 2 fields, if they're both equal, class **.matched** is add
   </div>
 </label>
 ```
+
+When user's entering the password again, smartform compares the value as the user types. When both values are equal, class **.matched** is added to #field2. If the field is out of focus, and the values are not equal, class *.not-matched* is added to #field2. 
 
 ## pattern 
 
@@ -114,8 +116,81 @@ smartform uses [regular express](http://en.wikipedia.org/wiki/Regular_expression
 
 This example test the value for upper-case, lower-case, and numbers. 
 
+
+
 ## data-pattern[-name]
 
+This allow to define multiple patterns. As each pattern is validated, a class *.pattern[-name]-valid* is added to the wrapper, otherwise it's *.pattern[-name]-invalid*.   
+When all of the patterns are validated, class *.pattern-valid* is added to the wrapper. If one or more patterns are failed the validation, class *.pattern-invalid* is added to the wrapper.
+
+This is useful to provide feedbacks to user for fields with complex requirement such as username or password.
+
+*[-name]* is a definable. Ie: a *data-pattern-uppercase* attribute has class names of *pattern-uppercase-valid* *pattern-uppercase-invalid* 
+
+```html
+<label>
+  Password: <br>
+
+  <input name="password"  required id="password"
+    data-pattern-uppercase="[A-Z]"
+    data-pattern-lowercase="[a-z]"
+    data-pattern-digit="\d"
+    data-pattern-symbol="[$%.#]"
+    data-pattern-nospace="^[\S]+$"
+    data-pattern-size="^.{6,10}$"
+    data-pattern-allow-chars="^[A-z0-9$%.#]+$">
+
+  <div class="smartform">
+    <div class="required">This field is required</div>
+    <ul>
+      <li class="pattern-uppercase"> At least 1 upper case letter </li>
+      <li class="pattern-lowercase"> At least 1 lower case letter </li>
+      <li class="pattern-digit"> At least 1 number </li>
+      <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
+      <li class="pattern-nospace"> No space </li>
+      <li class="pattern-size"> 6 to 10 characters </li>
+      <li class="pattern-allow-chars"> Valid characters </li>
+    </ul>
+  </div>
+</label>
+```
+
+Add CSS for the new classes
+
+```css
+/* change color to green when a pattern is valid */
+.pattern-uppercase-valid .pattern-uppercase,
+.pattern-lowercase-valid .pattern-lowercase,
+.pattern-digit-valid .pattern-digit,
+.pattern-symbol-valid .pattern-symbol,
+.pattern-nospace-valid .pattern-nospace,
+.pattern-size-valid .pattern-size,
+.pattern-allow-chars-valid .pattern-allow-chars 
+{
+  color:green;
+}
+
+/* change color to red when a pattern is invalid only when it's out of focus
+   so not all of them display red when the field is in focus
+*/
+.visited.pattern-uppercase-invalid .pattern-uppercase,
+.visited.pattern-lowercase-invalid .pattern-lowercase,
+.visited.pattern-digit-invalid .pattern-digit,
+.visited.pattern-symbol-invalid .pattern-symbol,
+.visited.pattern-nospace-invalid .pattern-nospace,
+.visited.pattern-size-invalid .pattern-size,
+.visited.pattern-allow-chars-invalid .pattern-allow-chars 
+{
+  color:red;
+}
+
+/* always show the required list */
+.smartform ul {
+  display:block;
+}
+```
+
+This password field requires at least 1 upper-case, 1 lower-case, 1 number, 1 symbol of $ % . #, 6 to 10 chactaers, and only allow letters and numbers and a set of defined symbols. 
 
 
 example
@@ -173,19 +248,6 @@ form .submit-invalid,
 	color:red;
 }
 ```
-
-## What it does:
-
-### .focus / .pattern-valid / .pattern-invalid
-
-When a field is in focus, it adds class **.focus** to the wrapper either parent element or element of data-smartform-wrapper value if defined. As you're typing it will test the pattern value to see if it's valid, if it's valid it adds class **.pattern-valid**, otherwise **.pattern-invalid** to the wrapper. 
-
-### .visited / .required
-
-As you move to the next field, class .focus is replaced with  class *.visited* to mark this field is visited. If the field has a *required* attribute, and the value is left empty or spaces only, class **.required** to the wrapper as well.
-
-
-
 
 
     
