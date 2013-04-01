@@ -2,7 +2,7 @@
 //     and adds classes to the input field's wrapper, so it makes it easy to style
 //     
 //     source: https:// github.com/lancevo/smartform
-//     
+//     author: Lance Vo
 //     **requires jQuery 1.7+**  
 //     
 //     tested on: IE7+
@@ -93,7 +93,7 @@
             break;
 
           case 'focusout':
-            wrapper.removeClass('focus');
+            wrapper.removeClass('focus').addClass('visited');
             // matched(true) to make sure it adds .not-matched if values are not equal
             v.required().matched(true);
             break;
