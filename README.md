@@ -1,20 +1,20 @@
-demo [http://dev.lancevo.net/smartform/](http://dev.lancevo.net/smartform/)
+demo [http://dev.lancevo.net/smartform/](http://dev.lancevo.net/smartform/)  
 source annotation: [http://dev.lancevo.net/smartform/docs/smartform.html](http://dev.lancevo.net/smartform/docs/smartform.html)
 
 smartform
 =========
 
-It's a jQuery plug-in to validate form fields. It adds necessary classes so you can customize your messages and it gets out of the way. Also, it supports one or more regular expressions, so you can write rules without writing JavaScripts.
+It's a jQuery plug-in to validate form fields. It adds necessary classes so you can customize your messages and it gets out of the way. Also, it supports [multiple regular expressions](#data-pattern-name), so you can write rules without writing JavaScripts.
 
 It uses error approach method, the field is activated when it has been interacted or the form is submitted. So there's no validation when the form is initially rendered.
 
 
 
 ###Features:
-* check for required fields
-* fields comparision
-* field validator with Regular Expression
-* support multiple validators
+* [check for required fields](#required)
+* [fields comparision](#data-smartform-match)
+* [field validator with Regular Expression](#pattern)
+* [support multiple validators](#data-pattern-name)
 
 **requires jQuery 1.7+**  
 tested on: IE7+, FireFox, Chrome, Safari
