@@ -1,14 +1,14 @@
-see the demo [http://dev.lancevo.net/smartform/](http://dev.lancevo.net/smartform/)
+demo [http://dev.lancevo.net/smartform/](http://dev.lancevo.net/smartform/)
 
-source annotaion: [http://dev.lancevo.net/smartform/docs/smartform.html](http://dev.lancevo.net/smartform/docs/smartform.html)
+source annotation: [http://dev.lancevo.net/smartform/docs/smartform.html](http://dev.lancevo.net/smartform/docs/smartform.html)
 
 
 smartform
 =========
 
-It's a jQuery plug-in to validate form fields. As it validates a field, it adds classes to the field's wrapper, either a parent element or the id/class in the data-smartform-wrapper attribute's value. You can use these classes to manipulate messages with CSS, that's why it's so easy to customize.
+It's a jQuery plug-in to validate form fields. It adds necessary classes so you can customize your messages and it gets out of the way. Also, it supports one or more regular expressions, so you can write rules without writing JavaScripts.
 
-Also it uses error approach method, the field is activated when it has been interacted or the form is submitted. So there's no validation when the form is rendered.
+It uses error approach method, the field is activated when it has been interacted or the form is submitted. So there's no validation when the form is initially rendered.
 
 
 
@@ -24,7 +24,8 @@ tested on: IE7+, FireFox, Chrome, Safari
 
 classes
 =======
-Depends on the attributes, some of the following will be added to the field's wrapper:
+
+Depends on the attributes, some of the following will be added to the field's wrapper, which is the field's parent element or the id/class or name in the data-smartform-wrapper attribute's value
 
 * **.focus**  field is in focus               
 * **.required** field is blurred and value is empty or contain spaces only
@@ -102,7 +103,7 @@ When user's entering the password again, smartform compares the value as the use
 
 smartform uses [regular express](http://en.wikipedia.org/wiki/Regular_expression) for validation, so there's no need to write JavaScript for validation. If a pattern is valid, class **.pattern-valid** is added to the wrapper, or **.pattern-invalid** for invalid. 
 
-*smartform turn off browser's builtin validator, so the plug-in already do all the validation and more. For some reason, you need to turn it back on just remove this line in the plug in form.attr('novalidate','novalidate')* 
+*smartform turn off HTML5 browser's builtin validator, so the plug-in already do all the validation and more. For some reason, you need to turn it back on just remove this line in the plug in form.attr('novalidate','novalidate')* 
 
 ```html
   <label> Name <br>
