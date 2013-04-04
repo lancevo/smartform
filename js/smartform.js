@@ -75,7 +75,10 @@
             type = el.attr('type')
             ;
 
-        if (type =='submit' || type=='reset' || type=='button') {
+        if (type =='submit') {
+          el.click();
+          return true;
+        } else if (type=='reset' || type=='button') {
           return true;
         }
 
@@ -101,6 +104,7 @@
 
         wrapper.removeClass(resetClasses + ' ' + v.getResetPatternClasses())
                .addClass(v.getClasses());
+        return true;
       })
 
 
