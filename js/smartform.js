@@ -75,10 +75,7 @@
             type = el.attr('type')
             ;
 
-        if (type =='submit') {
-          el.click();
-          return true;
-        } else if (type=='reset' || type=='button') {
+        if (type =='submit' || type=='reset' || type=='button') {
           return true;
         }
 
