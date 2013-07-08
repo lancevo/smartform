@@ -1,4 +1,4 @@
-demo <http://lancevo.github.io/smartform/> 
+demo <http://lancevo.github.io/smartform/>  
 source annotation: <http://lancevo.github.io/smartform/docs/smartform.html>
 
 smartform
