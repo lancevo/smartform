@@ -1,5 +1,5 @@
-demo [http://lancevo.github.io/smartform/](http://dev.lancevo.net/smartform/)  
-source annotation: [http://lancevo.github.io/smartform/docs/smartform.html](http://dev.lancevo.net/smartform/docs/smartform.html)
+demo <http://lancevo.github.io/smartform/> 
+source annotation: <http://lancevo.github.io/smartform/docs/smartform.html>
 
 smartform
 =========
