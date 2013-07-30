@@ -6,8 +6,7 @@ smartform
 
 It's a jQuery plug-in to validate form fields. It adds necessary classes so you can customize your messages and it gets out of the way. Also, it supports [multiple regular expressions](#data-pattern-name), so you can write rules without writing JavaScripts.
 
-It uses error approach method, the field is activated when it has been interacted or the form is submitted. So there's no validation when the form is initially rendered.
-
+It uses error approach method, there's no validation initially, unless the input field is focused or the form is submitted.
 
 
 ###Features:
@@ -23,7 +22,7 @@ tested on: IE7+, FireFox, Chrome, Safari
 classes
 =======
 
-Depends on the attributes, some of the following will be added to the field's wrapper, which is the field's parent element or the id/class or name in the data-smartform-wrapper attribute's value
+Depending on the input field's validation, these classes are added to input field's parent element or ancestor's element. 
 
 * **.focus**  field is in focus               
 * **.required** field is blurred and value is empty or contain spaces only
@@ -39,12 +38,12 @@ Depends on the attributes, some of the following will be added to the field's wr
 * **.submit-invalid** this class is added to the **form** when one of the field's value is invalid
 
 
-field attributes
+Validations
 ================
 
-## required 
+##  Required Input Field
 
-To ensure the field is required. Class **.required** is added to the wrapper or parent element, which is <label> in this case,  when the field's value is empty or has only spaces 
+To ensure the field is required, add `required` attribute to the input field. Class **.required** is added to the wrapper or parent element, which is `<label>` in this case,  when the input field's value is empty or has only spaces 
 
 ```html
 <label> 
@@ -55,9 +54,9 @@ To ensure the field is required. Class **.required** is added to the wrapper or 
 </label>
 ```
 
-## data-smartform-wrapper
+## Add the classes to the ancestor instead of parent's element
 
-If you want to add the classes to an element other than the parent's element, it can assigned in **data-smartform-wrapper** attribute. It's useful when you have 2 columns layout for the form. 
+If you want to add the classes to an ancestor element other than the input field's parent element, it can be assigned in **data-smartform-wrapper** attribute. 
 
 ```html
 <div id="wrapper1">
@@ -73,11 +72,15 @@ If you want to add the classes to an element other than the parent's element, it
   </div>
 </div>
 ```
-Now the wrapper is *#wrapper1* instead of parent element *.right*
 
-## data-smartform-match
+The classes are added to  `#wrapper1` instead of `.right`
 
-Compare values of the 2 fields, if they're both equal, class **.matched** is added to the current field's wrapper, otherwise **.not-matched** is added. The value of data-smartform-match attribute can be a field name, id, or a class.
+## Compare this input field's value with another input field's value
+
+It's commonly used for email/password verification. When 2 input fields' values need to be matched. 
+
+Insert `data-smartform-match="comparingElement"` to the input field. **comparingElement** can be an input field's name, id, or a classname. If the values are the same, a class `.matched` is added to the input field's parent element, otherwise a class `.not-matched` is added.
+
 
 ```html
 <label id="field1">
@@ -95,7 +98,9 @@ Compare values of the 2 fields, if they're both equal, class **.matched** is add
 </label>
 ```
 
-When user's entering the password again, smartform compares the value as the user types. When both values are equal, class **.matched** is added to #field2. If the field is out of focus, and the values are not equal, class *.not-matched* is added to #field2. 
+Smartform is actively comparing the while the user's re-entering the password. Once the value of *password-verify* is the same as *secret*, it adds class `.matched` to the `#field2`.  
+If the input field is out of focus, the value of *password-verify* doesn't match with *secret*, smartform will add `.not-matched` to `#field2`. This only happens when the input field is out of focus.
+
 
 ## pattern 
 
