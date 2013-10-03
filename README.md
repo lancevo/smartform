@@ -254,4 +254,53 @@ form .submit-invalid,
 ```
 
 
+### Select Box
+
+Smartform supports `required` attribute for `select` box. It checks
+for the value of the select box, if the selected option(s) value is empty,
+it adds `.required` to the `input` container. In case of multiple options,
+if two or more options selected as long one of them is not empty that would
+satisfy the validation.
+
+
+demo: <http://lancevo.github.io/smartform/select.html>
+
+```html
+ <section>
+     <label for="single-option"> Select an option </label>
+     <select id="single-option" required>
+         <option value=""> Empty</option>
+         <option value="opt1"> Option 1</option>
+         <option value="opt2"> Option 2</option>
+         <option> Option 3</option>
+     </select>
+     <div class="smartform">
+         <div class="required">
+             This field is required. Please pick one
+         </div>
+     </div>
+ </section>
+
+ <section>
+     <label for="multi-options"> Select multiple options </label> <br>
+     <select id="multi-options" required multiple>
+         <option value="">Empty</option>
+         <option value="opt1"> Option 1</option>
+         <option value="opt2"> Option 2</option>
+         <option> Option 3</option>
+     </select>
+     <div class="smartform">
+         <div class="required">
+             This field is required. Please pick one
+         </div>
+     </div>
+ </section>
+```
+
+
+
+
+
+
+
     
