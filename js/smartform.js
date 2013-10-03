@@ -62,6 +62,7 @@
 
         if (!isValidated) {
           form.addClass('submit-invalid');
+            e.preventDefault();
           return false;
         } 
         
@@ -142,11 +143,12 @@
             val = el.val();
 
             // single option;
-            if (typeof val==='string' && val==='') {
+            if (val == null || (typeof val==='string' && val==='')) {
                 classes += ' required';
             }
             // multiple options
             else {
+                console.log(el);
                if (val.length === 0) {
                  classes += ' required';
                } else {
