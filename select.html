@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Example</title>
+    <link href="css/smartform.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/smartform.js"></script>
+</head>
+<body>
+    <form>
+
+        <section>
+            <label for="single-option"> Select an option </label>
+            <select id="single-option" required>
+                <option value=""> Empty</option>
+                <option value="opt1"> Option 1</option>
+                <option value="opt2"> Option 2</option>
+                <option> Option 3</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    This field is required. Please pick one
+                </div>
+            </div>
+        </section>
+        <section>
+            <label for="multi-options"> Select multiple options </label>
+            <select id="multi-options" required multiple>
+                <option value="">Empty</option>
+                <option value="opt1"> Option 1</option>
+                <option value="opt2"> Option 2</option>
+                <option> Option 3</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    This field is required. Please pick one
+                </div>
+            </div>
+        </section>
+
+    </form>
+
+    <script>
+        $("form").smartform();
+    </script>
+</body>
+</html>
