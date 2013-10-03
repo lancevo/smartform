@@ -31,15 +31,15 @@
           resetClasses = ' required checked not-checked matched not-matched pattern-valid pattern-invalid '
           ;
 
-      // turn off browser validator
-      form.attr('novalidate','novalidate')
-
+      // turn off browser validator to hide browser's validator tooltips,
+      // so it doesn't interfere with css smartform messages
+      form.attr('novalidate','novalidate');
 
       form.on('submit', function(e){
         
         var isValidated = true;
 
-        form.find(":input").each(function(){
+        form.find(":input, select").each(function(){
           var el = $(this),
               type = el.attr('type'),
               wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
@@ -67,7 +67,7 @@
         
       })
 
-      form.on('keyup change focusin focusout ',':input', function(ev){
+      form.on('keyup change focusin focusout ',':input, select', function(ev){
         var el = $(this),
             // element's container that classes will be applied to 
             wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
@@ -134,11 +134,37 @@
             return this;
           }
 
+          var val;
+
           if (type === 'checkbox') {
             classes += el.is(':checked') ? '' : ' required';
+          } else if (el.is('select')) {
+            val = el.val();
+
+            // single option;
+            if (typeof val==='string' && val==='') {
+                classes += ' required';
+            }
+            // multiple options
+            else {
+               if (val.length === 0) {
+                 classes += ' required';
+               } else {
+                 for (var i= 0, emptyValues = true; i<val.length && emptyValues; i++) {
+                    if (val[i].length != '') {
+                        emptyValues = false;
+                    }
+                 }
+
+                 if (emptyValues) {
+                     classes += ' required';
+                 }
+               }
+            }
+
           } else if (type !=='radio') {
-            // value has only spaces will treat it as an empty string
-            classes += value.replace(/^\s+$/g,'') === '' ? ' required' : ''; 
+              // value has only spaces will treat it as an empty string
+              classes += value.replace(/^\s+$/g,'') === '' ? ' required' : '';
           }
 
           return this;
@@ -270,10 +296,10 @@
           if (pattern) {
             classes += pattern.test(value) ?  ' pattern-valid' : ' pattern-invalid';
           } else {
-            // get all data-smartform-pattern* attributes
+             // validate multiple reg-exp
+            // TODO: write better comments here
             for (var a = $(el)[0].attributes, i=0, j=a.length, p, s; i<j; i++) {
               if (a[i].name.match(/^data-pattern.*$/)) {
-                // extract pattern name, data-smartform-pattern1 -> s = pattern1 
                 s = a[i].name.replace(/data-/,'');
                 p = new RegExp( el.attr(a[i].name) );
                 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Example</title>
+    <link href="css/smartform.css" rel="stylesheet">
+
+    <style>
+        #datepicker {
+            position:relative;
+        }
+        /* align the select boxes */
+        #datepicker section {
+            display:inline-block;
+            vertical-align: top;
+        }
+        /* make sure all the smartform messages align left */
+        #datepicker .smartform div{
+            position: absolute;
+            left:0;
+            z-index: 10;
+            background:#fff; /* change this to whatever the background color is to hide the underneath messages */
+            width:100%;
+        }
+        /* you can change the the smartform message appearing order by
+           changing z-index in css for individual message.
+        */
+
+        /* increase the height of the .smartform container by the height
+        of the message */
+        #datepicker .required .smartform {
+            height:23px;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/smartform.js"></script>
+</head>
+<body>
+    <form>
+
+        <section>
+            <label for="single-option"> Select an option </label>
+            <select id="single-option" required>
+                <option value=""> Empty</option>
+                <option value="opt1"> Option 1</option>
+                <option value="opt2"> Option 2</option>
+                <option> Option 3</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    This field is required. Please pick one
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <label for="multi-options"> Select multiple options </label> <br>
+            <select id="multi-options" required multiple>
+                <option value="">Empty</option>
+                <option value="opt1"> Option 1</option>
+                <option value="opt2"> Option 2</option>
+                <option> Option 3</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    This field is required. Please pick one
+                </div>
+            </div>
+        </section>
+
+
+        <div id="datepicker">
+            <section>
+                <select id="mm" required>
+                    <option value="">Month</option>
+                </select>
+                <div class="smartform">
+                    <div class="required">
+                        Please pick a month
+                    </div>
+                </div>
+            </section>
+            <section>
+                <select id="dd" required>
+                    <option value="">Day</option>
+                </select>
+                <div class="smartform">
+                    <div class="required">
+                        Please pick a day
+                    </div>
+                </div>
+            </section>
+            <section>
+                <select id="yyyy" required>
+                    <option value="">Year</option>
+                </select>
+                <div class="smartform">
+                    <div class="required">
+                        Please pick a year
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+
+    </form>
+
+
+    <ul>
+        <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li>
+        <li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</li>
+        <li>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</li>
+        <li>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</li>
+    </ul>
+
+    <script>
+        // generate months/days/years
+        var months = days = years = '';
+
+        for (var i=1; i<=12; i++) {
+            months += '<option>' + i + '</option>';
+        }
+        for (var i=1; i<=31; i++) {
+            days += '<option>' + i + '</option>';
+        }
+        for (var i=1900; i<=2013; i++) {
+            years += '<option>' + i + '</option>';
+        }
+
+        $("#mm").append(months);
+        $("#dd").append(days);
+        $("#yyyy").append(years);
+
+        $("form").smartform();
+    </script>
+</body>
+</html>
