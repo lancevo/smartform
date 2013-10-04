@@ -1,6 +1,6 @@
 /*
 
-A jQuery plug-in to validate form fields. It only adds classes to the
+A jQuery plug-in to validate form fields. It only adds elClass to the
 form fields, and you customize how it appears.
 
 source: https://www.github.com/lancevo/smartform
@@ -15,24 +15,26 @@ ver: 1.0
 
 	// validate element
 	// @param el : form field element
-	function Validate(el) {
-		var self = this,
-				classes = {},
-			  wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent();
+	function Validate(el, form) {
+		var self = {},
+				elClass = {},
+			  elType = el.attr('type'),
+			  wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+				isRequired = el.attr('required');
 
-
-		// a helper fn to convert classes name of property to a string
-		function classToStr(){
+		// a helper fn to convert property names of `elClass` to a string
+		self.getClass = function() {
 			var arr = [];
 
-			arr = $.map(classes, function(val, i){
-				return i;
+			arr = $.map(elClass, function(val, propName){
+				return propName;
 			});
 
 			return arr.join(' ');
 		}
 
-		// queue a string of classes being added
+		// queue a string of elClass being added
+		// @param str (string) : classes to be added to the input wrapper
 		self.queueClass = function(str) {
 			var str = str.trim(str).replace(/\s{2,}/g,' ').split(' '),
 				  tmp = {};
@@ -41,27 +43,59 @@ ver: 1.0
 				 tmp[el] = 1;
 			});
 
-			classes = $.extend(classes, tmp);
+			elClass = $.extend(elClass, tmp);
 		}
 
-		// add all the queued classes to the element
-		self.addClass = function(){
-			wrapper.addClass(classToStr());
+		// add all the queued elClass to the element
+		self.addClass = function (){
+			wrapper.addClass(getClass());
 		}
 
-		// remove all the classes that are added to the element
-		self.resetClasses = function(){
-			wrapper.removeClass( classToStr() );
-			classes = {};
+		// remove all the elClass that are added to the element
+		self.resetClass = function(){
+			wrapper.removeClass( getClass() );
+			elClass = {};
 		}
 
-		self.classToStr = classToStr;
 
+		// validate required attribute
+		self.required = function() {
+			if (!isRequired) return this;
 
+			switch(elType) {
 
+				case 'checkbox' :
+					if(!el.is(':checked')) {self.queueClass('required')};
+					break;
+
+				case 'radio' :
+					var name = el.attr('name'),
+						  isChecked;
+					if (!name) {
+						throw new Error('required: radio input must have attribute name ' + el);
+					}
+					isChecked = form.find('[name="' + name + '":radio').is(':checked');
+
+					if (!isChecked) {self.queueClass('required')};
+					break;
+			}
+
+		} // required()
+
+		el.on('keyup change focusin focusout', function(e){
+			if (type =='submit' || type=='reset' || type=='button') {
+				return true;
+			}
+
+			switch(e.type) {
+				case 'changed' :
+					self.required();
+					break;
+			}
+
+		}); // on(..)
 
 		return self;
-
 	}
 
 	// @param fn : callback function after validated
@@ -72,26 +106,19 @@ ver: 1.0
 			form.on('submit', function(e){
 				var isValid = true;
 
-				form.find(':input, select').each(function(){
+				form.find(':input, select',function(){
 					var el = $(this),
-						  type = el.attr('type'),
-						  validate = new Validate(el, fn);
-
-					if (type==='submit' || type==='reset' || type==='button') {
-						return true;
-					}
-
-					validate.resetClasses().required().checked().matched().pattern().addClass();
+							validatedEl = new Validate(el, form);
 
 
 				}); // form.find();
 
 			}); // form.on('submit');
 
-			form.on('keyup change focusin focusout ',':input, select', function(e){
-
-
+			form.find(':input, select', function(){
+				validateEl()
 			});
+
 
 		}); // return
 	} // smartform
