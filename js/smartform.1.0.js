@@ -10,8 +10,71 @@ requires: jQuery 1.7+
 ver: 1.0
 */
 
+/*
 ;(function($){
   "use strict";
+
+*/
+
+
+	// is the value empty?
+	function isRequiredText(el) {
+		return el.val().trim() === '';
+	}
+
+	function isRequiredCheckbox(el) {
+		return !el.is(':checked');
+	}
+
+	function isRequiredSelect(el) {
+		var val = el.val();
+
+		// single option select box
+		if (typeof val==='string' || val == null) {
+			return !( typeof val==='string' ? val.trim() : val);
+		}
+
+		// multiple select options
+		if (val.length === 0) {
+			return true;
+		}
+
+		var stillEmptyValue = false;
+
+		for (var i= 0, l = val.length; i < l && stillEmptyValue; i++) {
+			if ($.trim(val[i]).length > 0) {
+				stillEmptyValue = false;
+			}
+		}
+
+		if (stillEmptyValue) {
+			return true;
+		}
+
+		return false;
+	}
+
+
+  // check both radio and checkbox to see if it's checked
+	function isChecked(el, form) {
+		var elType = el.attr('type'),
+				checked = false;
+
+		if (type !=='radio' && type !== 'checkbox') {
+			return false;
+		}
+
+		if (type === 'checkbox') {
+			checked = el.is(':checked');
+		} else {
+			checked = form.find('input[name="' + el.attr('name') + '"]').is(':checked');
+		}
+
+		return checked;
+	}
+
+
+/*
 
 	// validate element
 	// @param el : form field element
@@ -20,7 +83,11 @@ ver: 1.0
 				elClass = {},
 			  elType = el.attr('type'),
 			  wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+			  classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '',
 				isRequired = el.attr('required');
+
+
+
 
 		// a helper fn to convert property names of `elClass` to a string
 		self.getClass = function() {
@@ -40,60 +107,50 @@ ver: 1.0
 				  tmp = {};
 
 			$(str).each(function(i, el){
-				 tmp[el] = 1;
+				 tmp[classPrefix + el] = 1;
 			});
 
 			elClass = $.extend(elClass, tmp);
+			return this;
 		}
 
 		// add all the queued elClass to the element
-		self.addClass = function (){
-			wrapper.addClass(getClass());
+		self.addClass = function (str){
+			self.queueClass(str);
+			wrapper.addClass( self.getClass() );
+		  return this;
 		}
 
 		// remove all the elClass that are added to the element
 		self.resetClass = function(){
-			wrapper.removeClass( getClass() );
+			wrapper.removeClass( self.getClass() );
 			elClass = {};
+			return this;
 		}
 
 
 		// validate required attribute
 		self.required = function() {
+
 			if (!isRequired) return this;
 
-			switch(elType) {
-
-				case 'checkbox' :
-					if(!el.is(':checked')) {self.queueClass('required')};
-					break;
-
-				case 'radio' :
-					var name = el.attr('name'),
-						  isChecked;
-					if (!name) {
-						throw new Error('required: radio input must have attribute name ' + el);
-					}
-					isChecked = form.find('[name="' + name + '":radio').is(':checked');
-
-					if (!isChecked) {self.queueClass('required')};
-					break;
+			if (elType === 'checkbox') {
+				if(!el.is(':checked')) {self.queueClass('required')};
 			}
+			else if (el.is('select')) {
+				var val = el.val();
+
+				// is this a single option select box
+				if (val == null || (typeof val==='string' && val==='')) {
+					self.queueClass('required');
+				}
+			}
+
+			return this;
 
 		} // required()
 
-		el.on('keyup change focusin focusout', function(e){
-			if (type =='submit' || type=='reset' || type=='button') {
-				return true;
-			}
 
-			switch(e.type) {
-				case 'changed' :
-					self.required();
-					break;
-			}
-
-		}); // on(..)
 
 		return self;
 	}
@@ -103,24 +160,55 @@ ver: 1.0
 		return this.each(function(){
 			var form = $(this);
 
+			// turn off browser validator to hide browser's validator tooltips,
+			// so it doesn't interfere with css smartform messages
+			form.attr('novalidate','novalidate');
+
 			form.on('submit', function(e){
 				var isValid = true;
 
-				form.find(':input, select',function(){
+				*//*form.find(':input, select',function(){
 					var el = $(this),
 							validatedEl = new Validate(el, form);
 
 
-				}); // form.find();
+				}); // form.find();*//*
+
+				return false;
 
 			}); // form.on('submit');
 
-			form.find(':input, select', function(){
-				validateEl()
+			form.find(':input, select').each(function(){
+				var el = $(this),
+						type = el.attr('type'),
+						validator = new Validate(el, form);
+
+				el.on('keyup change focusin focusout', function(e){
+					if (type =='submit' || type=='reset' || type=='button') {
+						return true;
+					}
+					switch(e.type) {
+						case 'changed' :
+							validator.required();
+							break;
+
+						case 'focusin':
+							validator.queueClass('focus').addClass();
+							break;
+
+						case 'focusout' :
+							validator.resetClass().queueClass('visited').required().addClass();
+					} // switch
+
+				}); // on(..)
 			});
 
 
 		}); // return
-	} // smartform
+	} // smartform*/
+/*
+})(jQuery);*/
 
-})(jQuery);
+
+
+
