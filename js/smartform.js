@@ -39,7 +39,7 @@ ver: 1.0
 			return true;
 		}
 
-		var stillEmptyValue = false;
+		var stillEmptyValue = true;
 
 		for (var i= 0, l = val.length; i < l && stillEmptyValue; i++) {
 			if ($.trim(val[i]).length > 0) {
@@ -55,22 +55,125 @@ ver: 1.0
 	}
 
 
+	// @return true : if the value is empty or not selected / checked
+	//         false : passed the required requirement
+	function isRequired(el) {
+		var type = el.attr('type') || el[0].nodeName.toLowerCase();
+		var b;
+
+		if (!el.attr('required') || type === 'radio' || type === 'submit' || type === 'reset' || type === 'button' || !type) {
+			return false;
+		}
+		switch (type) {
+			case 'checkbox' :
+				b = isRequiredCheckbox(el);
+				break;
+
+			case 'select' :
+				b = isRequiredSelect(el);
+				break;
+
+			// catch all: textarea text / date / number ...
+			default :
+				b = isRequiredText(el);
+
+		}
+
+		return b;
+	}
+
+
   // check both radio and checkbox to see if it's checked
 	function isChecked(el, form) {
 		var elType = el.attr('type'),
 				checked = false;
 
-		if (type !=='radio' && type !== 'checkbox') {
+		if (elType !=='radio' && elType !== 'checkbox') {
 			return false;
 		}
 
-		if (type === 'checkbox') {
+		if (elType === 'checkbox') {
 			checked = el.is(':checked');
 		} else {
 			checked = form.find('input[name="' + el.attr('name') + '"]').is(':checked');
 		}
 
 		return checked;
+	}
+
+
+	// ### patterns
+	// Validates a pattern or data-pattern* attributes.
+	//
+	// **Single pattern:**
+	//
+	//     <div class="wrapper">
+	//       <input type="text" pattern="^[A-z]+$" />
+	//        ...
+	//     </div>
+	//
+	// It validates the pattern value and adds class *.pattern-valid*
+	// to .wrapper if it's true, or class *.pattern-invalid* if it's
+	// false
+	//
+	//
+	// **Multiple patterns:**
+	//
+	//
+	//     <div class="wrapper">
+	//     <input name="name"
+	//       data-pattern-uppercase="[A-Z]"
+	//       data-pattern-lowercase="[a-z]"
+	//       data-pattern-digit="\d"
+	//       data-pattern-symbol="[$%.#]"
+	//       data-pattern-nospace="^[\S]+$"
+	//       data-pattern-size="^.{6,10}$"
+	//       data-pattern-allow-chars="^[A-z0-9$%.#]+$"/>
+	//
+	//     <div class="smartforms">
+	//       <ul class="validations">
+	//         <li class="pattern-uppercase"> At least 1 upper case letter </li>
+	//         <li class="pattern-lowercase"> At least 1 lower case letter </li>
+	//         <li class="pattern-digit"> At least 1 number </li>
+	//         <li class="pattern-symbol"> At least 1 symbol of $ % . # </li>
+	//         <li class="pattern-nospace"> No space </li>
+	//         <li class="pattern-size"> 6 to 10 characters </li>
+	//         <li class="pattern-allow-chars"> Valid characters </li>
+	//       </ul>
+	//     </div>
+	//     ...
+	//     </div>
+	//
+	//
+	// *If both "pattern" and "data-pattern[-name]" attributes are present
+	// smartform will use attribute "pattern"
+
+	function testPattern(el) {
+		// test `pattern` attribute
+		var isValid = el.attr('pattern') ? new RegExp( el.attr('pattern') ) : undefined;
+
+		// single pattern
+		if (typeof isValid !== 'undefined') {
+			return isValid;
+		}
+	}
+
+	function testMultiPattern(el) {
+		var patterns = {},
+				attrs = el[0].attributes,
+				val = el.val();
+
+		// test all attribute name starting with `data-pattern`,
+		// store attribute name with its test value
+		for (var i=0, j=attrs.length, attrName, p; i<j; i++) {
+			if (attrs[i].name.match(/^data-pattern.*$/)) {
+				attrName = attrs[i].name;
+				p = new RegExp( el.attr(attrName) );
+				patterns[attrName] = p.test(val);
+			}
+		}
+
+		return patterns;
 	}
 
 
