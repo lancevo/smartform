@@ -150,11 +150,12 @@ ver: 1.0
 
 	function testPattern(el) {
 		// test `pattern` attribute
-		var isValid = el.attr('pattern') ? new RegExp( el.attr('pattern') ) : undefined;
+		var pattern = el.attr('pattern') ? new RegExp( el.attr('pattern') ) : undefined;
 
-		// single pattern
-		if (typeof isValid !== 'undefined') {
-			return isValid;
+		if (typeof pattern === 'undefined') {
+			throw new Error('there is no "pattern" attribute', el);
+		} else {
+			return pattern.test(el.val());
 		}
 	}
 
