@@ -10,11 +10,9 @@ requires: jQuery 1.7+
 ver: 1.0
 */
 
-/*
+
 ;(function($){
   "use strict";
-
-*/
 
 
 	// is the value empty?
@@ -89,7 +87,7 @@ ver: 1.0
 				checked = false;
 
 		if (elType !=='radio' && elType !== 'checkbox') {
-			return false;
+			throw new Error('this element is not a radio or checkbox');
 		}
 
 		if (elType === 'checkbox') {
@@ -148,7 +146,7 @@ ver: 1.0
 	// *If both "pattern" and "data-pattern[-name]" attributes are present
 	// smartform will use attribute "pattern"
 
-	function testPattern(el) {
+	function testSinglePattern(el) {
 		// test `pattern` attribute
 		var pattern = el.attr('pattern') ? new RegExp( el.attr('pattern') ) : undefined;
 
@@ -159,7 +157,12 @@ ver: 1.0
 		}
 	}
 
-	function testMultiPattern(el) {
+	// @return {
+	//            data-pattern-name1 : boolean, // (true: pass, false: fail)
+	//            data-pattern-name2 : boolean ...
+	// }
+	// or {} if there's no data-pattern-...
+	function testMultiPatterns(el) {
 		var patterns = {},
 				attrs = el[0].attributes,
 				val = el.val();
@@ -178,86 +181,131 @@ ver: 1.0
 	}
 
 
-/*
-
 	// validate element
 	// @param el : form field element
-	function Validate(el, form) {
+	function Validator(el, form) {
 		var self = {},
-				elClass = {},
+				
 			  elType = el.attr('type'),
 			  wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
-			  classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '',
-				isRequired = el.attr('required');
+				wrapperClass = {},
+			  classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '';
 
 
 
 
-		// a helper fn to convert property names of `elClass` to a string
+		// a helper fn to convert property names of `wrapperClass` to a string
 		self.getClass = function() {
 			var arr = [];
 
-			arr = $.map(elClass, function(val, propName){
+			arr = $.map(wrapperClass, function(val, propName){
 				return propName;
 			});
 
 			return arr.join(' ');
 		}
 
-		// queue a string of elClass being added
-		// @param str (string) : classes to be added to the input wrapper
-		self.queueClass = function(str) {
-			var str = str.trim(str).replace(/\s{2,}/g,' ').split(' '),
-				  tmp = {};
+		// add wrapperClass to the element
+		self.addClass = function (klasses){
+			var klasses = $.trim(klasses).replace(/\s{2,}/g,' ').split(' '),
+				tmp = {};
 
-			$(str).each(function(i, el){
-				 tmp[classPrefix + el] = 1;
+			$(klasses).each(function(i, klass){
+				if (klass !=="") {
+					klass = classPrefix + klass;
+					tmp[klass] = 1;
+				}
 			});
-
-			elClass = $.extend(elClass, tmp);
-			return this;
-		}
-
-		// add all the queued elClass to the element
-		self.addClass = function (str){
-			self.queueClass(str);
+			wrapperClass = $.extend(wrapperClass, tmp);
 			wrapper.addClass( self.getClass() );
+
 		  return this;
 		}
 
-		// remove all the elClass that are added to the element
+		self.removeClass = function(klasses) {
+			var klasses = $.trim(klasses).replace(/\s{2,}/g,' ').split(' '),
+				str = '';
+
+			$(klasses).each(function(i, klass){
+				klass = classPrefix + klass;
+				str = str + ' ' + klass;
+				delete wrapperClass[klass];
+			});
+			console.log(str);
+			wrapper.removeClass(str);
+			return this;
+		}
+
+		// remove all the wrapperClass that are added to the element
 		self.resetClass = function(){
 			wrapper.removeClass( self.getClass() );
-			elClass = {};
+			wrapperClass = {};
 			return this;
 		}
 
 
-		// validate required attribute
 		self.required = function() {
-
-			if (!isRequired) return this;
-
-			if (elType === 'checkbox') {
-				if(!el.is(':checked')) {self.queueClass('required')};
+			if (isRequired(el)) {
+				self.addClass('required');
+			} else {
+				self.removeClass('required');
 			}
-			else if (el.is('select')) {
-				var val = el.val();
+			return this;
+		} // required()
 
-				// is this a single option select box
-				if (val == null || (typeof val==='string' && val==='')) {
-					self.queueClass('required');
+
+		self.checked = function() {
+			if (elType !=='radio' && elType !== 'checkbox') {
+				return this;
+			}
+
+			if (isChecked(el, form)) {
+				self.addClass('checked').removeClass('not-checked');
+			} else {
+				self.addClass('not-checked').removeClass('checked');
+			}
+
+			return this;
+		}
+
+
+		self.testPattern = function(){
+			var patterns,
+					count = 0;
+
+
+			// test single `pattern` attribute
+			if (typeof el.attr('pattern') == 'string' ) {
+				if (testSinglePattern(el)) {
+					self.addClass('pattern-valid').removeClass('pattern-invalid');
+				} else {
+					self.addClass('pattern-invalid').removeClass('pattern-valid');
+				}
+
+				return this;
+			}
+
+			patterns = testMultiPatterns(el);
+
+			for (var p in patterns) {
+				count++;
+				if (patterns[p]) {
+					// shorten pattern name, remove `data-`
+					p = p.replace(/^data-/,'');
+					self.addClass(p + '-valid').removeClass(p + '-invalid');
+				} else {
+					p = p.replace(/^data-/,'');
+					self.addClass(p + '-invalid').removeClass(p + '-valid');
 				}
 			}
 
 			return this;
 
-		} // required()
-
-
+		}
 
 		return self;
 	}
+
 
 	// @param fn : callback function after validated
 	$.fn.smartform = function(fn){
@@ -271,12 +319,12 @@ ver: 1.0
 			form.on('submit', function(e){
 				var isValid = true;
 
-				*//*form.find(':input, select',function(){
-					var el = $(this),
-							validatedEl = new Validate(el, form);
-
-
-				}); // form.find();*//*
+//				form.find(':input, select',function(){
+//					var el = $(this),
+//							validatedEl = new Validate(el, form);
+//
+//
+//				}); // form.find();
 
 				return false;
 
@@ -285,33 +333,46 @@ ver: 1.0
 			form.find(':input, select').each(function(){
 				var el = $(this),
 						type = el.attr('type'),
-						validator = new Validate(el, form);
+						validate = new Validator(el, form),
+						wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent();
+
+
+				if (type =='submit' || type=='reset' || type=='button') {
+					return true;
+				}
 
 				el.on('keyup change focusin focusout', function(e){
-					if (type =='submit' || type=='reset' || type=='button') {
-						return true;
-					}
+					var tmp;
+
 					switch(e.type) {
-						case 'changed' :
-							validator.required();
+						case 'keyup':
+							validate.testPattern();
+						case 'change' :
+							validate.checked().required();
 							break;
 
 						case 'focusin':
-							validator.queueClass('focus').addClass();
+							validate.addClass('focus');
 							break;
 
 						case 'focusout' :
-							validator.resetClass().queueClass('visited').required().addClass();
+							validate.removeClass('focus').required().addClass('visited');
 					} // switch
+
+					//temporary remove all classes
+					wrapper.removeClass( validate.getClass() );
+
+					// add classes back
+					validate.addClass();
 
 				}); // on(..)
 			});
 
 
 		}); // return
-	} // smartform*/
-/*
-})(jQuery);*/
+	} // smartform
+
+})(jQuery);
 
 
 

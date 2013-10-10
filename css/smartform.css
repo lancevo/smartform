@@ -41,8 +41,8 @@ h3.submit-invalid {
     display:block;
 }
 
-.required .required,
-.pattern-invalid .pattern-invalid {
+.smartform .required,
+.smartform .pattern-invalid {
 	color:red;
 }
 

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Example</title>
+    <link href="css/smartform.css" rel="stylesheet">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/smartform.js"></script>
+</head>
+<body>
+<form>
+    <section>
+        <label for="f1"> text </label>
+        <input type="text" name="name" id="f1" required>
+        <div class="smartform">
+            <div class="focus">This message show when the field in focus.</div>
+            <div class="required">This is a required field.</div>
+        </div>
+    </section>
+    <section>
+        <label for="f2"> checkbox </label>
+        <input type="checkbox" name="checkbox" id="f2" required>
+        <div class="smartform">
+            <div class="focus">This message show when the field in focus.</div>
+            <div class="required">This is a required field.</div>
+        </div>
+    </section>
+
+
+
+    <section>
+        <label for="single-option"> Select an option </label>
+        <select id="single-option" required>
+            <option value=""> Empty</option>
+            <option value="opt1"> Option 1</option>
+            <option value="opt2"> Option 2</option>
+            <option> Option 3</option>
+        </select>
+        <div class="smartform">
+            <div class="required">
+                This field is required. Please pick one
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <label for="multi-options"> Select multiple options </label> <br>
+        <select id="multi-options" required multiple>
+            <option value="" selected>Empty</option>
+            <option value="" selected>Empty</option>
+            <option value="opt1"> Option 1</option>
+            <option value="opt2"> Option 2</option>
+            <option> Option 3</option>
+        </select>
+        <div class="smartform">
+            <div class="required">
+                This field is required. Please pick one
+            </div>
+        </div>
+    </section>
+
+
+    <div id="datepicker">
+        <section>
+            <select id="mm" required>
+                <option value="">Month</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    Please pick a month
+                </div>
+            </div>
+        </section>
+        <section>
+            <select id="dd" required>
+                <option value="">Day</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    Please pick a day
+                </div>
+            </div>
+        </section>
+        <section>
+            <select id="yyyy" required>
+                <option value="">Year</option>
+            </select>
+            <div class="smartform">
+                <div class="required">
+                    Please pick a year
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <h2> data-smartform-prefix </h2>
+    Check the &lt;section&gt; element, all classes have prefix "my". A dash will be added after prefix value.
+    <style>
+        .my-focus .focus, .my-required .required {
+            display:block;
+        }
+    </style>
+
+    <section>
+        <label for="f3">  </label>
+        <input type="text" name="txt" id="f3" data-smartform-prefix="my" required>
+        <div class="smartform">
+            <div class="focus">This message show when the field in focus.</div>
+            <div class="required">This is a required field.</div>
+        </div>
+    </section>
+
+    <input type="submit" value="submit">
+
+</form>
+
+
+<ul>
+    <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li>
+    <li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</li>
+    <li>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</li>
+    <li>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</li>
+</ul>
+
+<script>
+    // generate months/days/years
+    var months = days = years = '';
+
+    for (var i=1; i<=12; i++) {
+        months += '<option>' + i + '</option>';
+    }
+    for (var i=1; i<=31; i++) {
+        days += '<option>' + i + '</option>';
+    }
+    for (var i=1900; i<=2013; i++) {
+        years += '<option>' + i + '</option>';
+    }
+
+    $("#mm").append(months);
+    $("#dd").append(days);
+    $("#yyyy").append(years);
+
+    $("form").smartform();
+</script>
+</body>
+</html>
