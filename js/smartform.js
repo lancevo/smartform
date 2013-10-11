@@ -14,6 +14,113 @@ ver: 1.0
 ;(function($){
   "use strict";
 
+	// @param fn : callback function after validated
+	$.fn.smartform = function(formFn){
+		return this.each(function(){
+			var form = $(this);
+
+			// turn off browser validator to hide browser's validator tooltips,
+			// so it doesn't interfere with css smartform messages
+			form.attr('novalidate','novalidate');
+
+			form.on('submit', function(e){
+				var isFormValid = true;
+
+				form.find(':input, select').each(function(){
+					var el = $(this),
+						type = el.attr('type'),
+						validator,
+						wrapper,
+						klasses;
+
+					if (type =='submit' || type=='reset' || type=='button') {
+						return true;
+					}
+
+					validator = new Validator(el, form);
+					validator.required().checked().match().testPattern();
+					klasses = validator.getClass();
+
+					wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent();
+
+					//temporary remove all applied classes
+					wrapper.removeClass(klasses);
+					// add classes back
+					validator.addClass();
+
+
+
+					if (klasses.match(/(required|invalid)/g)) {
+						isFormValid = false;
+					}
+				}); // form.find();
+
+
+				if (!isFormValid) {
+					form.addClass('submit-invalid');
+					e.preventDefault();
+				}
+
+				// callback
+				if (formFn) {
+					formFn(e, form);
+				}
+
+				return isFormValid;
+
+			}); // form.on('submit');
+
+			form.find(':input, select').each(function(){
+				var el = $(this),
+					type = el.attr('type');
+
+				if (type =='submit' || type=='reset' || type=='button') {
+					return true;
+				}
+
+				var	validate = new Validator(el, form),
+					wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+					elFn = el.attr('data-smartform-fn') ? $.trim(el.attr('data-smartform-fn')) : undefined; // individual input field callback
+
+				el.on('keyup change focusin focusout', function(e){
+
+
+					switch(e.type) {
+						case 'keyup':
+							validate.match(false).testPattern(false);
+							break;
+
+						case 'change' :
+							validate.checked().required();
+							break;
+
+						case 'focusin':
+							validate.addClass('focus');
+							break;
+
+						case 'focusout' :
+							validate.removeClass('focus').required().match(true).testPattern(true).addClass('visited');
+							break;
+					} // switch
+
+					//temporary remove all applied classes
+					wrapper.removeClass( validate.getClass() );
+
+					// add classes back
+					validate.addClass();
+
+					// callback
+					if (elFn) {
+						eval(elFn + '(e, el, form)');
+					}
+
+				}); // on(..)
+			});
+
+
+		}); // return
+	} // smartform
+
 
 	// is the value empty?
 	function isRequiredText(el) {
@@ -174,10 +281,42 @@ ver: 1.0
 				attrName = attrs[i].name;
 				p = new RegExp( el.attr(attrName) );
 				patterns[attrName] = p.test(val);
+
 			}
 		}
 
 		return patterns;
+	}
+
+
+
+	// Compares its value to the target element's value
+	// 
+	//     <input name="password">  
+	//     <input name="password-verify" data-smartform-match="password">  
+	// 
+	function isMatched(el, form) {
+		var targetEl = el.attr('data-smartform-match');
+
+		console.log(el);
+		if (!targetEl || $.trim(targetEl)==='') {
+			throw new Error('Invalid data-smartform-match "' + el.attr('data-smartform-match') + '"');
+		}
+		
+		targetEl = $.trim(targetEl);
+
+		if (targetEl.substr(0,1)==='.' || targetEl.substr(0,1)==='#') {
+			targetEl = $(targetEl)[0];
+		} else {
+			// it's a name of an input field
+			targetEl = form.find('[name="' + targetEl + '"]')[0];
+		}
+
+		if (!targetEl) {
+			throw new Error('Unable to find element of "' + el.attr('data-smartform-match') + '" for data-smartform-match ');
+		}
+
+		return $(targetEl).val() === el.val();
 	}
 
 
@@ -231,7 +370,6 @@ ver: 1.0
 				str = str + ' ' + klass;
 				delete wrapperClass[klass];
 			});
-			console.log(str);
 			wrapper.removeClass(str);
 			return this;
 		}
@@ -268,10 +406,11 @@ ver: 1.0
 			return this;
 		}
 
-
-		self.testPattern = function(){
+		// @done (boolean) : user done typing, so add the pattern-invalid / pattern-valid error
+		self.testPattern = function(done){
 			var patterns,
-					count = 0;
+					count = 0,
+					isAllValid = true;
 
 
 			// test single `pattern` attribute
@@ -296,81 +435,43 @@ ver: 1.0
 				} else {
 					p = p.replace(/^data-/,'');
 					self.addClass(p + '-invalid').removeClass(p + '-valid');
+					isAllValid = false;
 				}
+			}
+
+			// mark as [classPrefix-]pattern-valid if all patterns passed
+			if (isAllValid && done) {
+				self.addClass('pattern-valid').removeClass('pattern-invalid');
+			} else if (done) {
+				self.addClass('pattern-invalid').removeClass('pattern-valid');
 			}
 
 			return this;
 
 		}
 
+		// @done (boolean) : report error only the user is done typing,
+		//                   how validate and let user know it's matched when he's typing.
+		self.match = function(done){
+			var targetEl = el.attr('data-smartform-match');
+
+			if (el.val() === '' || !targetEl || $.trim(targetEl)==='') {
+				return this;
+			}
+
+			if (isMatched(el, form)) {
+				self.addClass('matched').removeClass('not-matched');
+			} else if (done) {
+				self.addClass('not-matched').removeClass('matched');
+			}
+
+			return this;
+		}
+
 		return self;
 	}
 
 
-	// @param fn : callback function after validated
-	$.fn.smartform = function(fn){
-		return this.each(function(){
-			var form = $(this);
-
-			// turn off browser validator to hide browser's validator tooltips,
-			// so it doesn't interfere with css smartform messages
-			form.attr('novalidate','novalidate');
-
-			form.on('submit', function(e){
-				var isValid = true;
-
-//				form.find(':input, select',function(){
-//					var el = $(this),
-//							validatedEl = new Validate(el, form);
-//
-//
-//				}); // form.find();
-
-				return false;
-
-			}); // form.on('submit');
-
-			form.find(':input, select').each(function(){
-				var el = $(this),
-						type = el.attr('type'),
-						validate = new Validator(el, form),
-						wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent();
-
-
-				if (type =='submit' || type=='reset' || type=='button') {
-					return true;
-				}
-
-				el.on('keyup change focusin focusout', function(e){
-					var tmp;
-
-					switch(e.type) {
-						case 'keyup':
-							validate.testPattern();
-						case 'change' :
-							validate.checked().required();
-							break;
-
-						case 'focusin':
-							validate.addClass('focus');
-							break;
-
-						case 'focusout' :
-							validate.removeClass('focus').required().addClass('visited');
-					} // switch
-
-					//temporary remove all classes
-					wrapper.removeClass( validate.getClass() );
-
-					// add classes back
-					validate.addClass();
-
-				}); // on(..)
-			});
-
-
-		}); // return
-	} // smartform
 
 })(jQuery);
 

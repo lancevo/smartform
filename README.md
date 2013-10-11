@@ -1,4 +1,25 @@
-demo <http://lancevo.github.io/smartform/>  
+smartform
+=========
+
+A jQuery plugin to validate form fields. It applies classes to the input fields wrapper,
+so the messages and the look can be easy controlled by CSS. It also has a few features
+to extend the common form validation such as:
+
+* pattern
+* multiple patterns
+* callback function (form level, and field level)
+* custom class names
+
+
+
+### `required` input
+
+
+
+### OLD DOC ###
+
+
+demo <http://lancevo.github.io/smartform/>
 source annotation: <http://lancevo.github.io/smartform/docs/smartform.html>
 
 It's a jQuery plug-in to validate form fields. It adds necessary classes so you can customize your messages and it gets out of the way. Also, it supports [multiple regular expressions](#data-pattern-name), so you can write rules without writing JavaScripts.

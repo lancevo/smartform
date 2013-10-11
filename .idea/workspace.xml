@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5bf9f15-2c22-44a2-ade3-4de0be64b819" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pattern.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/required.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/radio.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/select.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/required/patternSpec.js" afterPath="$PROJECT_DIR$/test/required/patternSpec.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/smartform.css" afterPath="$PROJECT_DIR$/css/smartform.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/callback-1.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/match-1.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/required-1.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/required-2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pattern.html" afterPath="$PROJECT_DIR$/pattern.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/smartform.js" afterPath="$PROJECT_DIR$/js/smartform.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -35,13 +34,13 @@
     <favorites_list name="smartform" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.42019773">
+    <splitter split-orientation="horizontal" split-proportion="0.44641417">
       <split-first>
         <leaf>
           <file leaf-file-name="smartform.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/smartform.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="232" column="9" selection-start="5689" selection-end="5689" vertical-scroll-proportion="0.55992144" vertical-offset="3195" max-vertical-offset="5775">
+                <state line="63" column="19" selection-start="1469" selection-end="1469" vertical-scroll-proportion="0.7984791" vertical-offset="315" max-vertical-offset="7290">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -56,25 +55,34 @@
           <file leaf-file-name="required.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/required.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-22.708334" vertical-offset="625" max-vertical-offset="2265">
+                <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-48.75" vertical-offset="0" max-vertical-offset="2265">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="pattern.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/pattern.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="65" column="45" selection-start="2365" selection-end="2365" vertical-scroll-proportion="-11.458333" vertical-offset="700" max-vertical-offset="1890">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="deleteSmartform.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="deleteSmartform.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/deleteSmartform.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="302" column="58" selection-start="10311" selection-end="10311" vertical-scroll-proportion="-0.55992144" vertical-offset="4500" max-vertical-offset="5055">
+                <state line="81" column="0" selection-start="2612" selection-end="2612" vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5055">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="match-1.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/demo/match-1.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="17" column="25" selection-start="405" selection-end="405" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="810">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="callback-1.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="51" column="8" selection-start="1403" selection-end="1403" vertical-scroll-proportion="0.8457584" vertical-offset="107" max-vertical-offset="915">
                   <folding />
                 </state>
               </provider>
@@ -100,10 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/inputtext.html" />
-        <option value="$PROJECT_DIR$/test/required/requireSpec.js" />
-        <option value="$PROJECT_DIR$/karma.conf.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/js/smartform.1.0.js" />
         <option value="$PROJECT_DIR$/test/required/demoSpec.js" />
@@ -114,8 +118,12 @@
         <option value="$PROJECT_DIR$/input.html" />
         <option value="$PROJECT_DIR$/required.html" />
         <option value="$PROJECT_DIR$/css/smartform.css" />
-        <option value="$PROJECT_DIR$/js/smartform.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/demo/required-1.html" />
+        <option value="$PROJECT_DIR$/demo/match-1.html" />
         <option value="$PROJECT_DIR$/pattern.html" />
+        <option value="$PROJECT_DIR$/js/smartform.js" />
+        <option value="$PROJECT_DIR$/demo/callback-1.html" />
       </list>
     </option>
   </component>
@@ -123,10 +131,10 @@
     <data>$PROJECT_DIR$/node_modules/karma</data>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="373" />
-    <option name="y" value="37" />
-    <option name="width" value="1687" />
-    <option name="height" value="1035" />
+    <option name="x" value="88" />
+    <option name="y" value="32" />
+    <option name="width" value="1585" />
+    <option name="height" value="950" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -188,6 +196,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartform" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartform" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartform" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartform" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -206,6 +242,10 @@
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/demo" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
     </key>
@@ -319,7 +359,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="373" y="37" width="1687" height="1035" extended-state="0" />
+    <frame x="88" y="32" width="1585" height="950" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Coverage" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18618618" sideWeight="0.715847" order="3" side_tool="true" content_ui="tabs" />
@@ -327,8 +367,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3076225" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18372281" sideWeight="0.67045456" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13711151" sideWeight="0.6010929" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3989071" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19363223" sideWeight="0.3792517" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6207483" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.284153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -359,26 +399,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Changes.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="69" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="23" selection-start="222" selection-end="313" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="274" column="42" selection-start="9536" selection-end="9536" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Changes.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="69" selection-start="278" selection-end="278" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.10752688" vertical-offset="0" max-vertical-offset="558" />
@@ -414,13 +434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/required.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-22.708334" vertical-offset="625" max-vertical-offset="2265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="58" column="50" selection-start="2147" selection-end="2147" vertical-scroll-proportion="1.1752577" vertical-offset="300" max-vertical-offset="2055">
@@ -437,25 +450,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/smartform.js">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="9" selection-start="5689" selection-end="5689" vertical-scroll-proportion="0.55992144" vertical-offset="3195" max-vertical-offset="5775">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state line="14" column="14" selection-start="0" selection-end="10518" vertical-scroll-proportion="0.41257367" vertical-offset="0" max-vertical-offset="4950">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pattern.html">
+    <entry file="file://$PROJECT_DIR$/required.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="45" selection-start="2365" selection-end="2365" vertical-scroll-proportion="-11.458333" vertical-offset="700" max-vertical-offset="1890">
+        <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-48.75" vertical-offset="0" max-vertical-offset="2265">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/required-2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="31" selection-start="694" selection-end="694" vertical-scroll-proportion="-10.625" vertical-offset="180" max-vertical-offset="690">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/required-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="24" selection-start="145" selection-end="145" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="690">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/deleteSmartform.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="302" column="58" selection-start="10311" selection-end="10311" vertical-scroll-proportion="-0.55992144" vertical-offset="4500" max-vertical-offset="5055">
+        <state line="81" column="0" selection-start="2612" selection-end="2612" vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5055">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pattern.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="16" selection-start="0" selection-end="3106" vertical-scroll-proportion="-1.25" vertical-offset="75" max-vertical-offset="1305">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/match-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="25" selection-start="405" selection-end="405" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/smartform.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="19" selection-start="1469" selection-end="1469" vertical-scroll-proportion="0.7984791" vertical-offset="315" max-vertical-offset="7290">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="8" selection-start="1403" selection-end="1403" vertical-scroll-proportion="0.8457584" vertical-offset="107" max-vertical-offset="915">
           <folding />
         </state>
       </provider>

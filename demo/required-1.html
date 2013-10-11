@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>smartform</title>
+
+    <style>
+        /* hide all the messages in smartform */
+        .smartform div {
+            display:none;
+        }
+
+        /* show it when one of the event is triggerred */
+        .focus .focus, .required .required {
+            display:block;
+        }
+
+        /* color errors red */
+        .smartform .required {
+            color: red;
+        }
+    </style>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/smartform.js"></script>
+</head>
+<body>
+<form>
+    <section>
+        <label for="name"> Enter your name </label>
+        <input required id="name" name="name">
+        <div class="smartform">
+            <div class="focus"> eg. John Doe</div>
+            <div class="required"> This field is required </div>
+        </div>
+    </section>
+    <input type="submit" value="submit">
+</form>
+    <script>
+        $("form").smartform();
+    </script>
+</body>
+</html>
