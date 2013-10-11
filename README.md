@@ -1,9 +1,9 @@
 smartform
 =========
 
-A jQuery plugin to validate form fields. It applies classes to the input fields wrapper,
+A jQuery plugin to validate form fields. It applies classes to the input fields wrapper, 
 so the messages and the look can be easy controlled by CSS. It also has a few features
-to extend the common form validation such as:
+to extend the common form validation such as:   
 
 * pattern
 * multiple patterns
@@ -12,14 +12,81 @@ to extend the common form validation such as:
 
 
 
-### `required` input
+### Usage
+
+```javascript
+$("form").smartform();
+```
+
+
+### `required` 
+
+
+`required` works on most input fields except `radio` buttons. To require user to check one of the radio buttons, just include attribute `checked` in the `input`.   
+
+demo: <http://lancevo.github.io/smartform/demo/required-1.html>    
+
+
+```html
+<form>
+  <section>
+  	<label for="name"> Enter your name </label>
+	<input required id="name" name="name">
+        <div class="smartform">
+            <div class="focus"> eg. John Doe</div>
+            <div class="required"> This field is required </div>
+        </div>
+  </section>
+  <input type="submit" value="submit">
+</form>
+```
+
+```css
+/* hide all the messages in smartform */
+.smartform div {
+	display:none;
+}
+
+/* show it when one of the event is triggerred */
+.focus .focus, .required .required {
+	display:block;
+}
+
+/* color errors red */
+.smartform .required {
+	color: red;
+}
+```
+
+```javascript
+$("form").smartform();
+```
 
 
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 ### OLD DOC ###
 
 
-demo <http://lancevo.github.io/smartform/>
+demo <http://lancevo.github.io/smartform/>  
 source annotation: <http://lancevo.github.io/smartform/docs/smartform.html>
 
 It's a jQuery plug-in to validate form fields. It adds necessary classes so you can customize your messages and it gets out of the way. Also, it supports [multiple regular expressions](#data-pattern-name), so you can write rules without writing JavaScripts.
