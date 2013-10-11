@@ -406,7 +406,10 @@ ver: 1.0
 			return this;
 		}
 
-		// @done (boolean) : user done typing, so add the pattern-invalid / pattern-valid error
+		// @done (boolean) : true: add .pattern-invalid when pattern is failed
+		//                   false: do not .pattern-invalid when pattern is failed
+		//                   the purpose is to validate pattern(s) realtime, so it adds .pattern-valid
+		//                   while user is typing, only adds .pattern-invalid when user is done typing. 
 		self.testPattern = function(done){
 			var patterns,
 					count = 0,
@@ -414,11 +417,18 @@ ver: 1.0
 
 
 			// test single `pattern` attribute
+
+			// it tests the pattern as user is typing
+			// if it satisfies the pattern, it adds `.pattern-valid` instantly
+			// if it doesn't satisfies and `done` is `true`, it adds `.pattern-invalid` and removes `.pattern-valid`,
+			// otherwise it only remove `.pattern-valid`
 			if (typeof el.attr('pattern') == 'string' ) {
 				if (testSinglePattern(el)) {
 					self.addClass('pattern-valid').removeClass('pattern-invalid');
-				} else {
+				} else if (done) {
 					self.addClass('pattern-invalid').removeClass('pattern-valid');
+				} else {
+					self.removeClass('pattern-valid');
 				}
 
 				return this;
@@ -428,8 +438,11 @@ ver: 1.0
 
 			for (var p in patterns) {
 				count++;
+				// `data-` is removed from `data-pattern[-customName]` for class name
+				// eg: <input data-pattern-numbers="/^\d{1,}$/">
+				//     depends on the outcome of the value, the class names are
+				// `.pattern-numbers-valid` and `.pattern-numbers-invalid`
 				if (patterns[p]) {
-					// shorten pattern name, remove `data-`
 					p = p.replace(/^data-/,'');
 					self.addClass(p + '-valid').removeClass(p + '-invalid');
 				} else {
@@ -439,19 +452,23 @@ ver: 1.0
 				}
 			}
 
-			// mark as [classPrefix-]pattern-valid if all patterns passed
+			// if all patterns passed, `.pattern-valid` is added
+			// otherwise if any of the pattern failed, `.pattern-invalid` is added when `done` is `true`
 			if (isAllValid && done) {
 				self.addClass('pattern-valid').removeClass('pattern-invalid');
 			} else if (done) {
 				self.addClass('pattern-invalid').removeClass('pattern-valid');
+			} else {
+				self.removeClass('pattern-valid')
 			}
 
 			return this;
 
 		}
 
-		// @done (boolean) : report error only the user is done typing,
-		//                   how validate and let user know it's matched when he's typing.
+		// @done (boolean) : true: add .not-matched when both input values are not the same
+		//                   false: do not .not-matched when both input values are not the same
+		//                   the purpose is to show error when user is done typing.
 		self.match = function(done){
 			var targetEl = el.attr('data-smartform-match');
 

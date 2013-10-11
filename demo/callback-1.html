@@ -10,12 +10,12 @@
         }
 
         /* show it when one of the event is triggerred */
-        .focus .focus, .matched .matched, .not-matched .not-matched {
+        .required .required {
             display:block;
         }
 
         /* color errors red */
-        .smartform .not-matched {
+        .smartform .required {
             color: red;
         }
     </style>
@@ -23,20 +23,20 @@
     <script src="../js/smartform.js"></script>
 </head>
 <body>
-<form>
-    <h2>Individual field call back function</h2>
-    <section>
-        <label for="name"> Enter your name </label>
-        <input required id="name" name="name" data-smartform-fn="myValidator">
-        <div class="smartform">
-            <div class="required"> This field is required </div>
+    <form>
+        <h2>Individual field call back function</h2>
+        <section>
+            <label for="name"> Enter your name </label>
+            <input required id="name" name="name" data-smartform-fn="myValidator">
+            <div class="smartform">
+                <div class="required"> This field is required </div>
+            </div>
+        </section>
+        <div id="status">
         </div>
-    </section>
-    <div id="status">
-    </div>
 
-    <input type="submit" value="submit">
-</form>
+        <input type="submit" value="submit">
+    </form>
     <script>
         function myValidator(event, element, form) {
            var str = "event type: " + event.type + "<br>" +
@@ -49,7 +49,6 @@
         function myGlobalFormCallback(event, form) {
             alert(" hello I'm myGlobalFormCallback function")
         }
-        
         $("form").smartform(myGlobalFormCallback);
     </script>
 </body>

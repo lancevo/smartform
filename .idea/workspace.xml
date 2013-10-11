@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5bf9f15-2c22-44a2-ade3-4de0be64b819" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/callback-1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/match-1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/required-1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/required-2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pattern.html" afterPath="$PROJECT_DIR$/pattern.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/password-1.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-advance.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/callback-1.html" afterPath="$PROJECT_DIR$/demo/callback-1.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/smartform.js" afterPath="$PROJECT_DIR$/js/smartform.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -34,16 +31,25 @@
     <favorites_list name="smartform" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.44641417">
+    <splitter split-orientation="horizontal" split-proportion="0.5619048">
       <split-first>
         <leaf>
-          <file leaf-file-name="smartform.js" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="smartform.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/smartform.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="63" column="19" selection-start="1469" selection-end="1469" vertical-scroll-proportion="0.7984791" vertical-offset="315" max-vertical-offset="7290">
+                <state line="467" column="0" selection-start="11850" selection-end="11850" vertical-scroll-proportion="0.31558937" vertical-offset="6756" max-vertical-offset="7545">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="account-ssn.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/demo/account-ssn.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="16" column="30" selection-start="424" selection-end="424" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1230">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -55,7 +61,7 @@
           <file leaf-file-name="required.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/required.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-48.75" vertical-offset="0" max-vertical-offset="2265">
+                <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-0.0" vertical-offset="1170" max-vertical-offset="2265">
                   <folding />
                 </state>
               </provider>
@@ -64,7 +70,7 @@
           <file leaf-file-name="deleteSmartform.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/deleteSmartform.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="0" selection-start="2612" selection-end="2612" vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5055">
+                <state line="81" column="0" selection-start="2612" selection-end="2612" vertical-scroll-proportion="0.0" vertical-offset="1215" max-vertical-offset="5370">
                   <folding />
                 </state>
               </provider>
@@ -73,16 +79,34 @@
           <file leaf-file-name="match-1.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/demo/match-1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="17" column="25" selection-start="405" selection-end="405" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="810">
+                <state line="17" column="25" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="810">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="callback-1.html" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="password-1.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/demo/password-1.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="callback-1.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="51" column="8" selection-start="1403" selection-end="1403" vertical-scroll-proportion="0.8457584" vertical-offset="107" max-vertical-offset="915">
+                <state line="13" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="0.06738544" vertical-offset="145" max-vertical-offset="900">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="58" column="50" selection-start="2147" selection-end="2147" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="2055">
                   <folding />
                 </state>
               </provider>
@@ -108,9 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/js/smartform.1.0.js" />
-        <option value="$PROJECT_DIR$/test/required/demoSpec.js" />
         <option value="$PROJECT_DIR$/radio.html" />
         <option value="$PROJECT_DIR$/select.html" />
         <option value="$PROJECT_DIR$/test/required/patterns.js" />
@@ -122,8 +143,11 @@
         <option value="$PROJECT_DIR$/demo/required-1.html" />
         <option value="$PROJECT_DIR$/demo/match-1.html" />
         <option value="$PROJECT_DIR$/pattern.html" />
-        <option value="$PROJECT_DIR$/js/smartform.js" />
+        <option value="$PROJECT_DIR$/demo/password-1.html" />
         <option value="$PROJECT_DIR$/demo/callback-1.html" />
+        <option value="$PROJECT_DIR$/demo/account-dob.html" />
+        <option value="$PROJECT_DIR$/demo/account-ssn.html" />
+        <option value="$PROJECT_DIR$/js/smartform.js" />
       </list>
     </option>
   </component>
@@ -232,14 +256,14 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="preferences.sourceCode.JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/karma-jasmine/lib/index.js" />
+    <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/karma-jasmine/lib/index.js" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -256,6 +280,14 @@
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -266,12 +298,8 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -279,10 +307,6 @@
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -362,12 +386,11 @@
     <frame x="88" y="32" width="1585" height="950" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18618618" sideWeight="0.715847" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3076225" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18372281" sideWeight="0.67045456" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19363223" sideWeight="0.3792517" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19334187" sideWeight="0.3792517" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6207483" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -377,6 +400,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929516" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18618618" sideWeight="0.715847" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -399,67 +423,34 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.10752688" vertical-offset="0" max-vertical-offset="558" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/karma.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="638" selection-end="638" vertical-scroll-proportion="0.7359155" vertical-offset="47" max-vertical-offset="1215">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/required/requiredCheckedSpec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="24" selection-start="150" selection-end="150" vertical-scroll-proportion="0.11986301" vertical-offset="0" max-vertical-offset="2130">
-          <folding />
-        </state>
+        <state line="7" column="24" selection-start="150" selection-end="150" vertical-scroll-proportion="0.11986301" vertical-offset="0" max-vertical-offset="2130" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/required/patternSpec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="7" selection-start="887" selection-end="887" vertical-scroll-proportion="0.6875" vertical-offset="144" max-vertical-offset="930">
-          <folding />
-        </state>
+        <state line="36" column="7" selection-start="887" selection-end="887" vertical-scroll-proportion="0.6875" vertical-offset="144" max-vertical-offset="930" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/css/smartform.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="10" selection-start="997" selection-end="997" vertical-scroll-proportion="0.48850575" vertical-offset="555" max-vertical-offset="1410">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="50" selection-start="2147" selection-end="2147" vertical-scroll-proportion="1.1752577" vertical-offset="300" max-vertical-offset="2055">
-          <folding />
-        </state>
+        <state line="54" column="10" selection-start="997" selection-end="997" vertical-scroll-proportion="0.48850575" vertical-offset="555" max-vertical-offset="1410" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="53" selection-end="53" vertical-scroll-proportion="0.029469548" vertical-offset="0" max-vertical-offset="509">
-          <folding>
-            <marker date="1381341964000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
+        <state line="1" column="0" selection-start="53" selection-end="53" vertical-scroll-proportion="0.029469548" vertical-offset="0" max-vertical-offset="509" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="14" selection-start="0" selection-end="10518" vertical-scroll-proportion="0.41257367" vertical-offset="0" max-vertical-offset="4950">
-          <folding />
-        </state>
+        <state line="14" column="14" selection-start="0" selection-end="10518" vertical-scroll-proportion="0.41257367" vertical-offset="0" max-vertical-offset="4950" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/required.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="-48.75" vertical-offset="0" max-vertical-offset="2265">
+        <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="0.0" vertical-offset="1170" max-vertical-offset="2265">
           <folding />
         </state>
       </provider>
@@ -492,26 +483,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="50" selection-start="2147" selection-end="2147" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="2055">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/demo/match-1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="25" selection-start="405" selection-end="405" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="810">
+        <state line="17" column="25" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/password-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="0.06738544" vertical-offset="145" max-vertical-offset="900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/account-ssn.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="30" selection-start="424" selection-end="424" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1230">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/smartform.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="19" selection-start="1469" selection-end="1469" vertical-scroll-proportion="0.7984791" vertical-offset="315" max-vertical-offset="7290">
+        <state line="467" column="0" selection-start="11850" selection-end="11850" vertical-scroll-proportion="0.31558937" vertical-offset="6756" max-vertical-offset="7545">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="8" selection-start="1403" selection-end="1403" vertical-scroll-proportion="0.8457584" vertical-offset="107" max-vertical-offset="915">
-          <folding />
         </state>
       </provider>
     </entry>
