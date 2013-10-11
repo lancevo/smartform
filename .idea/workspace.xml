@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5bf9f15-2c22-44a2-ade3-4de0be64b819" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/password-1.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/demo-advance.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/callback-1.html" afterPath="$PROJECT_DIR$/demo/callback-1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/smartform.js" afterPath="$PROJECT_DIR$/js/smartform.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/deleteSmartform.js" afterPath="" />
     </list>
     <ignored path="smartform.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,10 +30,10 @@
     <splitter split-orientation="horizontal" split-proportion="0.5619048">
       <split-first>
         <leaf>
-          <file leaf-file-name="smartform.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="smartform.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/smartform.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="467" column="0" selection-start="11850" selection-end="11850" vertical-scroll-proportion="0.31558937" vertical-offset="6756" max-vertical-offset="7545">
+                <state line="474" column="66" selection-start="12251" selection-end="12251" vertical-scroll-proportion="0.4486692" vertical-offset="6756" max-vertical-offset="7545">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -67,10 +63,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="deleteSmartform.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/js/deleteSmartform.js">
+          <file leaf-file-name="pattern.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/pattern.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="0" selection-start="2612" selection-end="2612" vertical-scroll-proportion="0.0" vertical-offset="1215" max-vertical-offset="5370">
+                <state line="14" column="5" selection-start="359" selection-end="359" vertical-scroll-proportion="-0.020215634" vertical-offset="225" max-vertical-offset="1305">
                   <folding />
                 </state>
               </provider>
@@ -94,10 +90,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="callback-1.html" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="callback-1.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="13" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="0.06738544" vertical-offset="145" max-vertical-offset="900">
+                <state line="13" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="-2.0833333" vertical-offset="145" max-vertical-offset="900">
                   <folding />
                 </state>
               </provider>
@@ -217,20 +213,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="smartform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -435,7 +417,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/smartform.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="10" selection-start="997" selection-end="997" vertical-scroll-proportion="0.48850575" vertical-offset="555" max-vertical-offset="1410" />
+        <state line="54" column="10" selection-start="997" selection-end="997" vertical-scroll-proportion="0.48850575" vertical-offset="555" max-vertical-offset="1410">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.min.js">
@@ -448,13 +432,6 @@
         <state line="14" column="14" selection-start="0" selection-end="10518" vertical-scroll-proportion="0.41257367" vertical-offset="0" max-vertical-offset="4950" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/required.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="0.0" vertical-offset="1170" max-vertical-offset="2265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/required-2.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="31" selection-start="694" selection-end="694" vertical-scroll-proportion="-10.625" vertical-offset="180" max-vertical-offset="690">
@@ -465,20 +442,6 @@
     <entry file="file://$PROJECT_DIR$/demo/required-1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="24" selection-start="145" selection-end="145" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="690">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/deleteSmartform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="2612" selection-end="2612" vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5055">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pattern.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="16" selection-start="0" selection-end="3106" vertical-scroll-proportion="-1.25" vertical-offset="75" max-vertical-offset="1305">
           <folding />
         </state>
       </provider>
@@ -504,13 +467,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="0.06738544" vertical-offset="145" max-vertical-offset="900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/account-ssn.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="30" selection-start="424" selection-end="424" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1230">
@@ -520,10 +476,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/smartform.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="467" column="0" selection-start="11850" selection-end="11850" vertical-scroll-proportion="0.31558937" vertical-offset="6756" max-vertical-offset="7545">
+        <state line="474" column="66" selection-start="12251" selection-end="12251" vertical-scroll-proportion="0.4486692" vertical-offset="6756" max-vertical-offset="7545">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/callback-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="-2.0833333" vertical-offset="145" max-vertical-offset="900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/required.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="38" selection-start="0" selection-end="4720" vertical-scroll-proportion="0.0" vertical-offset="1170" max-vertical-offset="2265">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pattern.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="5" selection-start="359" selection-end="359" vertical-scroll-proportion="-0.020215634" vertical-offset="225" max-vertical-offset="1305">
+          <folding />
         </state>
       </provider>
     </entry>
