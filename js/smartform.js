@@ -1,18 +1,18 @@
 /*
 
-A jQuery plug-in to validate form fields. It only adds elClass to the
-form fields, and you customize how it appears.
+ A jQuery plug-in to validate form fields. It only adds elClass to the
+ form fields, and you customize how it appears.
 
-source: https://www.github.com/lancevo/smartform
-author: Lance Vo
+ source: https://www.github.com/lancevo/smartform
+ author: Lance Vo
 
-requires: jQuery 1.7+
-ver: 1.0
-*/
+ requires: jQuery 1.7+
+ ver: 1.0
+ */
 
 
 ;(function($){
-  "use strict";
+	"use strict";
 
 	// @param fn : callback function after validated
 	$.fn.smartform = function(formFn){
@@ -38,7 +38,7 @@ ver: 1.0
 					}
 
 					validator = new Validator(el, form);
-					validator.required().checked().match().testPattern();
+					validator.required().checked().match(true).testPattern(true);
 					klasses = validator.getClass();
 
 					wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent();
@@ -188,10 +188,10 @@ ver: 1.0
 	}
 
 
-  // check both radio and checkbox to see if it's checked
+	// check both radio and checkbox to see if it's checked
 	function isChecked(el, form) {
 		var elType = el.attr('type'),
-				checked = false;
+			checked = false;
 
 		if (elType !=='radio' && elType !== 'checkbox') {
 			throw new Error('this element is not a radio or checkbox');
@@ -271,8 +271,8 @@ ver: 1.0
 	// or {} if there's no data-pattern-...
 	function testMultiPatterns(el) {
 		var patterns = {},
-				attrs = el[0].attributes,
-				val = el.val();
+			attrs = el[0].attributes,
+			val = el.val();
 
 		// test all attribute name starting with `data-pattern`,
 		// store attribute name with its test value
@@ -302,7 +302,7 @@ ver: 1.0
 		if (!targetEl || $.trim(targetEl)==='') {
 			throw new Error('Invalid data-smartform-match "' + el.attr('data-smartform-match') + '"');
 		}
-		
+
 		targetEl = $.trim(targetEl);
 
 		if (targetEl.substr(0,1)==='.' || targetEl.substr(0,1)==='#') {
@@ -324,11 +324,11 @@ ver: 1.0
 	// @param el : form field element
 	function Validator(el, form) {
 		var self = {},
-				
-			  elType = el.attr('type'),
-			  wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
-				wrapperClass = {},
-			  classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '';
+
+			elType = el.attr('type'),
+			wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+			wrapperClass = {},
+			classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '';
 
 
 
@@ -358,7 +358,7 @@ ver: 1.0
 			wrapperClass = $.extend(wrapperClass, tmp);
 			wrapper.addClass( self.getClass() );
 
-		  return this;
+			return this;
 		}
 
 		self.removeClass = function(klasses) {
@@ -409,12 +409,16 @@ ver: 1.0
 		// @done (boolean) : true: add .pattern-invalid when pattern is failed
 		//                   false: do not .pattern-invalid when pattern is failed
 		//                   the purpose is to validate pattern(s) realtime, so it adds .pattern-valid
-		//                   while user is typing, only adds .pattern-invalid when user is done typing. 
+		//                   while user is typing, only adds .pattern-invalid when user is done typing.
 		self.testPattern = function(done){
 			var patterns,
-					count = 0,
-					isAllValid = true;
+				count = 0,
+				isAllValid = true;
 
+
+			if (el.val() ==='') {
+				return this;
+			}
 
 			// test single `pattern` attribute
 
