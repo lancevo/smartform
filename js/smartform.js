@@ -63,7 +63,7 @@
 
 				// callback
 				if (formFn) {
-					formFn(e, form);
+					formFn(e, form, validator);
 				}
 
 				return isFormValid;
@@ -78,40 +78,41 @@
 					return true;
 				}
 
-				var	validate = new Validator(el, form),
+				var	validator = new Validator(el, form),
 					wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
 					elFn = el.attr('data-smartform-fn') ? $.trim(el.attr('data-smartform-fn')) : undefined; // individual input field callback
+
 
 				el.on('keyup change focusin focusout', function(e){
 
 
 					switch(e.type) {
 						case 'keyup':
-							validate.match(false).testPattern(false);
+							validator.match(false).testPattern(false);
 							break;
 
 						case 'change' :
-							validate.checked().required();
+							validator.checked().required();
 							break;
 
 						case 'focusin':
-							validate.addClass('focus');
+							validator.addClass('focus');
 							break;
 
 						case 'focusout' :
-							validate.removeClass('focus').required().match(true).testPattern(true).addClass('visited');
+							validator.removeClass('focus').required().match(true).testPattern(true).addClass('visited');
 							break;
 					} // switch
 
 					//temporary remove all applied classes
-					wrapper.removeClass( validate.getClass() );
+					wrapper.removeClass( validator.getClass() );
 
 					// add classes back
-					validate.addClass();
+					validator.addClass();
 
 					// callback
 					if (elFn) {
-						eval(elFn + '(e, el, form)');
+						eval(elFn + '(e, el, form, validator)');
 					}
 
 				}); // on(..)
@@ -291,10 +292,10 @@
 
 
 	// Compares its value to the target element's value
-	// 
-	//     <input name="password">  
-	//     <input name="password-verify" data-smartform-match="password">  
-	// 
+	//
+	//     <input name="password">
+	//     <input name="password-verify" data-smartform-match="password">
+	//
 	function isMatched(el, form) {
 		var targetEl = el.attr('data-smartform-match');
 
@@ -495,7 +496,3 @@
 
 
 })(jQuery);
-
-
-
-
