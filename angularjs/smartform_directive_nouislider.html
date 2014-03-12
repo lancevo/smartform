@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>smartform</title>
+    <link href="jquery.nouislider.min.css" rel="stylesheet" type="text/css"/>
+    <style>
+        /* hide all the messages in smartform */
+        .smartform div {
+            display:none;
+        }
+
+        /* show .focus message when in focus */
+        .focus .focus,
+        /* show .required message when blurred */
+        .required .required,
+        /* show .visited message when blurred */
+        .visited .visited
+        {
+            display:block;
+        }
+
+        /* color errors red */
+        .smartform .required {
+            color: red;
+        }
+        .noUiSlider {
+            width: 300px;
+            margin:25px 0;
+        }
+    </style>
+
+
+</head>
+<body ng-app="smartformExample">
+<div ng-controller="MainController">
+    <form smartform >
+        <section class="somethingClass">
+            <label for="name"> Enter your name </label>
+            <input required id="name" name="name">
+            <div class="smartform">
+                <div class="focus"> eg. John Doe</div>
+                <div class="required"> This field is required </div>
+                <div class="visited"> This is a .visited message </div>
+            </div>
+        </section>
+        <section>
+            <input value="55" ng-model="inputs.incomeAgeAtRetirement" class="col-sm-12 form-control slider-input" type="number" id="incomeAgeAtRetirement" name="AgeAtRetirement"  maxlength="2">
+            <div min="50" max="99" step="1" for="incomeAgeAtRetirement" class="noUiSlider"></div>
+        </section>
+        <input type="submit" value="submit">
+    </form>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/smartform.js"></script>
+<script src="jquery.nouislider.min.js"></script>
+<script src="angular.min.js"></script>
+<script>
+    var app = angular.module('smartformExample',[]);
+</script>
+<script src="MainController.js"></script>
+<script src="smartform.directive.js"></script>
+<script src="ui-slider.js"></script>
+</body>
+</html>
