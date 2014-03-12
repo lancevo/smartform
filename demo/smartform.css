@@ -1,10 +1,10 @@
-/* hide all errors, and all children elements of .smartform*/
-form .submit-invalid, 
-.smartform > * {
+/* hide all errors, and all children elements of .sfm*/
+.sfm > * {
   display: none;
 }
 
 .focus .focus,
+.visited .visited,
 .required .required,
 .checked .checked,
 .not-checked .not-checked, 
@@ -17,7 +17,7 @@ form .submit-invalid,
   display:block;
 }
 
-/* your css here */
+/* YOUR CSS HERE */
 /* classes for multiple patterns */
 
 
@@ -37,12 +37,12 @@ h3.submit-invalid {
 }
 
 /* always show the validation block */
-.smartform .validation {
+.sfm .validation {
     display:block;
 }
 
-.smartform .required,
-.smartform .pattern-invalid {
+.sfm .required,
+.sfm .pattern-invalid {
 	color:red;
 }
 
