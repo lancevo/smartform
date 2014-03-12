@@ -1,16 +1,28 @@
 smartform
-=========
+---------  
 
-A jQuery plugin to validate form fields. It applies classes to the input fields wrapper, 
-so the messages and the look can be easy controlled by CSS. It also has a few features
+A jQuery plugin to validate form fields. It applies classes to the input fields,
+so the necessary messages can be easy controlled by CSS. It also has a few features
 to extend the common form validation such as:   
+
 
 * pattern
 * multiple patterns
-* callback function (form level, and field level)
-* custom class names
+* callback function for form and individual field
+* prefix class name for individual field to avoid class name colliding
+
+In most cases, smartform utilizes html5 attributes, however it disables browser built-in form validation
+so that it doesn't conflict . If javascript is disabled, these html5 attributes will be validated by the browser.
 
 
+Demo
+----
+
+* [Password strength meter](#)
+* [Multiple select boxes - class name prefix](#)
+* [Pattern](#)
+* [Multiple patterns](#)
+* [Callback function](#)
 
 ### Usage
 
@@ -18,50 +30,63 @@ to extend the common form validation such as:
 $("form").smartform();
 ```
 
-
-### `required` 
-
-
-`required` works on most input fields except `radio` buttons. To require user to check one of the radio buttons, just include attribute `checked` in the `input`.   
-
-demo: <http://lancevo.github.io/smartform/demo/required-1.html>    
-
-
-```html
-<form>
-  <section>
-  	<label for="name"> Enter your name </label>
-	<input required id="name" name="name">
-        <div class="smartform">
-            <div class="focus"> eg. John Doe</div>
-            <div class="required"> This field is required </div>
-        </div>
-  </section>
-  <input type="submit" value="submit">
-</form>
-```
+### Basic CSS
+Add your own css if you need to
 
 ```css
-/* hide all the messages in smartform */
-.smartform div {
-	display:none;
+/* hide all smartform messages */
+.sfm > * {
+  display: none;
 }
 
-/* show it when one of the event is triggerred */
-.focus .focus, .required .required {
-	display:block;
-}
-
-/* color errors red */
-.smartform .required {
-	color: red;
+/* show smartform message */
+.focus .focus,
+.required .required,
+.checked .checked,
+.not-checked .not-checked,
+.matched .matched,
+.not-matched .not-matched,
+.pattern-valid .pattern-valid,
+.pattern-invalid .pattern-invalid,
+.submit-invalid .submit-invalid
+{
+  display:block;
 }
 ```
 
-```javascript
-$("form").smartform();
-```
 
+### `.focus` and `.visited`
+
+`.focus` class is added to a wrapper when the input field is in focus, and removed when it's blurred. 
+
+`.visited` class is added to a wrapper once the input field is blurred. 
+
+demo: <http://jsfiddle.net/lvo811/DEBLF/>
+
+
+### attribute `required` 
+
+attribute `required` works on most fields & options except `radio` buttons.
+To require user to check one of the radio buttons, just add attribute `checked` on one of the radio button.
+
+If the value of an input field is empty, `.required` class is added to the input wrapper, in the demo below the wrapper is `<section>`   
+
+demo: <http://jsfiddle.net/lvo811/k4H5N/>
+
+
+
+
+### `.checked`
+
+Smartform automatically adds `.checked` and `.not-checked` to any radio buttons and check box wrapper.
+If you want to display individual message for each radio button or check box, see `data-smartform-prefix` attribute example.
+
+demo: <http://lancevo.github.io/smartform/demo/check-1.html>
+
+
+
+
+	
 
 
 

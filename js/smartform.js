@@ -1,26 +1,28 @@
 /*
 
-A jQuery plug-in to validate form fields. It only adds elClass to the
-form fields, and you customize how it appears.
+ A jQuery plug-in to validate form fields. It only adds elClass to the
+ form fields, and you customize how it appears.
 
-source: https://www.github.com/lancevo/smartform
-author: Lance Vo
+ source: https://www.github.com/lancevo/smartform
+ author: Lance Vo
 
-requires: jQuery 1.7+
-ver: 1.0
-*/
+ requires: jQuery 1.7+
+ ver: 1.0
+ */
 
 
+var SmartFormValidator;
 ;(function($){
-  "use strict";
+	"use strict";
+	SmartFormValidator = Validator;
 
-	// @param fn : callback function after validated
+	// @param formFn : form callback function after it's validated
 	$.fn.smartform = function(formFn){
 		return this.each(function(){
 			var form = $(this);
 
-			// turn off browser validator to hide browser's validator tooltips,
-			// so it doesn't interfere with css smartform messages
+			// turn off browser validator to hide browser tooltips messages,
+			// so it doesn't conflict with smartform validator
 			form.attr('novalidate','novalidate');
 
 			form.on('submit', function(e){
@@ -38,7 +40,7 @@ ver: 1.0
 					}
 
 					validator = new Validator(el, form);
-					validator.required().checked().match().testPattern();
+					validator.required().checked().match(true).testPattern(true);
 					klasses = validator.getClass();
 
 					wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent();
@@ -78,48 +80,50 @@ ver: 1.0
 					return true;
 				}
 
-				var	validate = new Validator(el, form),
+				var	validator = new Validator(el, form),
 					wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
 					elFn = el.attr('data-smartform-fn') ? $.trim(el.attr('data-smartform-fn')) : undefined; // individual input field callback
+
 
 				el.on('keyup change focusin focusout', function(e){
 
 
 					switch(e.type) {
 						case 'keyup':
-							validate.match(false).testPattern(false);
+							validator.match(false).testPattern(false);
 							break;
 
 						case 'change' :
-							validate.checked().required();
+							validator.checked().required();
 							break;
 
 						case 'focusin':
-							validate.addClass('focus');
+							validator.addClass('focus');
 							break;
 
 						case 'focusout' :
-							validate.removeClass('focus').required().match(true).testPattern(true).addClass('visited');
+							validator.removeClass('focus').required().match(true).testPattern(true).addClass('visited');
 							break;
 					} // switch
 
 					//temporary remove all applied classes
-					wrapper.removeClass( validate.getClass() );
+					wrapper.removeClass( validator.getClass() );
 
 					// add classes back
-					validate.addClass();
+					validator.addClass();
 
 					// callback
 					if (elFn) {
-						eval(elFn + '(e, el, form)');
+						eval(elFn + '(e, el, form, validator)');
 					}
 
 				}); // on(..)
 			});
 
-
 		}); // return
 	} // smartform
+
+
 
 
 	// is the value empty?
@@ -144,19 +148,15 @@ ver: 1.0
 			return true;
 		}
 
-		var stillEmptyValue = true;
+		var areSelectedOptionsEmpty = true;
 
-		for (var i= 0, l = val.length; i < l && stillEmptyValue; i++) {
+		for (var i= 0, l = val.length; i < l && areSelectedOptionsEmpty; i++) {
 			if ($.trim(val[i]).length > 0) {
-				stillEmptyValue = false;
+				areSelectedOptionsEmpty = false;
 			}
 		}
 
-		if (stillEmptyValue) {
-			return true;
-		}
-
-		return false;
+		return areSelectedOptionsEmpty;
 	}
 
 
@@ -188,10 +188,10 @@ ver: 1.0
 	}
 
 
-  // check both radio and checkbox to see if it's checked
+	// check both radio and checkbox to see if it's checked
 	function isChecked(el, form) {
 		var elType = el.attr('type'),
-				checked = false;
+			checked = false;
 
 		if (elType !=='radio' && elType !== 'checkbox') {
 			throw new Error('this element is not a radio or checkbox');
@@ -271,38 +271,38 @@ ver: 1.0
 	// or {} if there's no data-pattern-...
 	function testMultiPatterns(el) {
 		var patterns = {},
-				attrs = el[0].attributes,
-				val = el.val();
+			attrs = el[0].attributes,
+			val = el.val(),
+			hasPattern = false;
 
 		// test all attribute name starting with `data-pattern`,
 		// store attribute name with its test value
 		for (var i=0, j=attrs.length, attrName, p; i<j; i++) {
 			if (attrs[i].name.match(/^data-pattern.*$/)) {
+				hasPattern = true;
 				attrName = attrs[i].name;
 				p = new RegExp( el.attr(attrName) );
 				patterns[attrName] = p.test(val);
-
 			}
 		}
 
-		return patterns;
+		return hasPattern ? patterns : undefined;
 	}
 
 
 
 	// Compares its value to the target element's value
-	// 
-	//     <input name="password">  
-	//     <input name="password-verify" data-smartform-match="password">  
-	// 
+	//
+	//     <input name="password">
+	//     <input name="password-verify" data-smartform-match="password">
+	//
 	function isMatched(el, form) {
 		var targetEl = el.attr('data-smartform-match');
 
-		console.log(el);
 		if (!targetEl || $.trim(targetEl)==='') {
 			throw new Error('Invalid data-smartform-match "' + el.attr('data-smartform-match') + '"');
 		}
-		
+
 		targetEl = $.trim(targetEl);
 
 		if (targetEl.substr(0,1)==='.' || targetEl.substr(0,1)==='#') {
@@ -320,15 +320,20 @@ ver: 1.0
 	}
 
 
-	// validate element
-	// @param el : form field element
+	// validate an input field
+	// @param el : input element
+	// @param form: form element
+	// @return Validator object
+
 	function Validator(el, form) {
+		el = $(el);
+
 		var self = {},
-				
-			  elType = el.attr('type'),
-			  wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
-				wrapperClass = {},
-			  classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '';
+
+			elType = el.attr('type'),
+			wrapper = el.attr('data-smartform-wrapper') ? $( el.attr('data-smartform-wrapper') ) : el.parent(),
+			wrapperClass = {},
+			classPrefix = el.attr('data-smartform-prefix') ? el.attr('data-smartform-prefix') + '-' : '';
 
 
 
@@ -345,6 +350,7 @@ ver: 1.0
 		}
 
 		// add wrapperClass to the element
+		// @param klasses : a string of classes to be applied to the element wrapper
 		self.addClass = function (klasses){
 			var klasses = $.trim(klasses).replace(/\s{2,}/g,' ').split(' '),
 				tmp = {};
@@ -358,7 +364,7 @@ ver: 1.0
 			wrapperClass = $.extend(wrapperClass, tmp);
 			wrapper.addClass( self.getClass() );
 
-		  return this;
+			return this;
 		}
 
 		self.removeClass = function(klasses) {
@@ -409,11 +415,11 @@ ver: 1.0
 		// @done (boolean) : true: add .pattern-invalid when pattern is failed
 		//                   false: do not .pattern-invalid when pattern is failed
 		//                   the purpose is to validate pattern(s) realtime, so it adds .pattern-valid
-		//                   while user is typing, only adds .pattern-invalid when user is done typing. 
+		//                   while user is typing, only adds .pattern-invalid when user is done typing.
 		self.testPattern = function(done){
 			var patterns,
-					count = 0,
-					isAllValid = true;
+				isAllValid = true;
+
 
 
 			// test single `pattern` attribute
@@ -423,11 +429,16 @@ ver: 1.0
 			// if it doesn't satisfies and `done` is `true`, it adds `.pattern-invalid` and removes `.pattern-valid`,
 			// otherwise it only remove `.pattern-valid`
 			if (typeof el.attr('pattern') == 'string' ) {
-				if (testSinglePattern(el)) {
+                if (el.val() ==='') {
+                    // reset classes when value is empty
+                    self.removeClass('pattern-valid pattern-invalid');
+                } else if (testSinglePattern(el)) {
 					self.addClass('pattern-valid').removeClass('pattern-invalid');
 				} else if (done) {
+                    // add pattern-invalid right away when the test is failed
 					self.addClass('pattern-invalid').removeClass('pattern-valid');
 				} else {
+                    // just remove pattern-valid when the test is failed
 					self.removeClass('pattern-valid');
 				}
 
@@ -436,17 +447,22 @@ ver: 1.0
 
 			patterns = testMultiPatterns(el);
 
-			for (var p in patterns) {
-				count++;
-				// `data-` is removed from `data-pattern[-customName]` for class name
+			// there is no multi patterns to test
+			if (!patterns) {
+				return this;
+			}
+
+            for (var p in patterns) {
+                p = p.replace(/^data-/,'');
+                // `data-` is removed from `data-pattern[-customName]` for class name
 				// eg: <input data-pattern-numbers="/^\d{1,}$/">
 				//     depends on the outcome of the value, the class names are
 				// `.pattern-numbers-valid` and `.pattern-numbers-invalid`
-				if (patterns[p]) {
-					p = p.replace(/^data-/,'');
+                if (el.val() === '') {
+                    self.removeClass(p + '-valid ' + p + '-invalid');
+                } else if (patterns['data-' + p]) {
 					self.addClass(p + '-valid').removeClass(p + '-invalid');
 				} else {
-					p = p.replace(/^data-/,'');
 					self.addClass(p + '-invalid').removeClass(p + '-valid');
 					isAllValid = false;
 				}
@@ -454,7 +470,10 @@ ver: 1.0
 
 			// if all patterns passed, `.pattern-valid` is added
 			// otherwise if any of the pattern failed, `.pattern-invalid` is added when `done` is `true`
-			if (isAllValid && done) {
+            if (el.val() ==='') {
+                // reset classes when value is empty
+                self.removeClass('pattern-valid pattern-invalid');
+            } else if (isAllValid && done) {
 				self.addClass('pattern-valid').removeClass('pattern-invalid');
 			} else if (done) {
 				self.addClass('pattern-invalid').removeClass('pattern-valid');
@@ -491,7 +510,3 @@ ver: 1.0
 
 
 })(jQuery);
-
-
-
-
