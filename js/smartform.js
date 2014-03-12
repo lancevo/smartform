@@ -11,16 +11,18 @@
  */
 
 
+var SmartFormValidator;
 ;(function($){
 	"use strict";
+	SmartFormValidator = Validator;
 
-	// @param fn : callback function after validated
+	// @param formFn : form callback function after it's validated
 	$.fn.smartform = function(formFn){
 		return this.each(function(){
 			var form = $(this);
 
-			// turn off browser validator to hide browser's validator tooltips,
-			// so it doesn't interfere with css smartform messages
+			// turn off browser validator to hide browser tooltips messages,
+			// so it doesn't conflict with smartform validator
 			form.attr('novalidate','novalidate');
 
 			form.on('submit', function(e){
@@ -63,7 +65,7 @@
 
 				// callback
 				if (formFn) {
-					formFn(e, form, validator);
+					formFn(e, form);
 				}
 
 				return isFormValid;
@@ -118,9 +120,10 @@
 				}); // on(..)
 			});
 
-
 		}); // return
 	} // smartform
+
+
 
 
 	// is the value empty?
@@ -145,19 +148,15 @@
 			return true;
 		}
 
-		var stillEmptyValue = true;
+		var areSelectedOptionsEmpty = true;
 
-		for (var i= 0, l = val.length; i < l && stillEmptyValue; i++) {
+		for (var i= 0, l = val.length; i < l && areSelectedOptionsEmpty; i++) {
 			if ($.trim(val[i]).length > 0) {
-				stillEmptyValue = false;
+				areSelectedOptionsEmpty = false;
 			}
 		}
 
-		if (stillEmptyValue) {
-			return true;
-		}
-
-		return false;
+		return areSelectedOptionsEmpty;
 	}
 
 
@@ -273,20 +272,21 @@
 	function testMultiPatterns(el) {
 		var patterns = {},
 			attrs = el[0].attributes,
-			val = el.val();
+			val = el.val(),
+			hasPattern = false;
 
 		// test all attribute name starting with `data-pattern`,
 		// store attribute name with its test value
 		for (var i=0, j=attrs.length, attrName, p; i<j; i++) {
 			if (attrs[i].name.match(/^data-pattern.*$/)) {
+				hasPattern = true;
 				attrName = attrs[i].name;
 				p = new RegExp( el.attr(attrName) );
 				patterns[attrName] = p.test(val);
-
 			}
 		}
 
-		return patterns;
+		return hasPattern ? patterns : undefined;
 	}
 
 
@@ -299,7 +299,6 @@
 	function isMatched(el, form) {
 		var targetEl = el.attr('data-smartform-match');
 
-		console.log(el);
 		if (!targetEl || $.trim(targetEl)==='') {
 			throw new Error('Invalid data-smartform-match "' + el.attr('data-smartform-match') + '"');
 		}
@@ -321,9 +320,14 @@
 	}
 
 
-	// validate element
-	// @param el : form field element
+	// validate an input field
+	// @param el : input element
+	// @param form: form element
+	// @return Validator object
+
 	function Validator(el, form) {
+		el = $(el);
+
 		var self = {},
 
 			elType = el.attr('type'),
@@ -346,6 +350,7 @@
 		}
 
 		// add wrapperClass to the element
+		// @param klasses : a string of classes to be applied to the element wrapper
 		self.addClass = function (klasses){
 			var klasses = $.trim(klasses).replace(/\s{2,}/g,' ').split(' '),
 				tmp = {};
@@ -413,13 +418,9 @@
 		//                   while user is typing, only adds .pattern-invalid when user is done typing.
 		self.testPattern = function(done){
 			var patterns,
-				count = 0,
 				isAllValid = true;
 
 
-			if (el.val() ==='') {
-				return this;
-			}
 
 			// test single `pattern` attribute
 
@@ -428,11 +429,16 @@
 			// if it doesn't satisfies and `done` is `true`, it adds `.pattern-invalid` and removes `.pattern-valid`,
 			// otherwise it only remove `.pattern-valid`
 			if (typeof el.attr('pattern') == 'string' ) {
-				if (testSinglePattern(el)) {
+                if (el.val() ==='') {
+                    // reset classes when value is empty
+                    self.removeClass('pattern-valid pattern-invalid');
+                } else if (testSinglePattern(el)) {
 					self.addClass('pattern-valid').removeClass('pattern-invalid');
 				} else if (done) {
+                    // add pattern-invalid right away when the test is failed
 					self.addClass('pattern-invalid').removeClass('pattern-valid');
 				} else {
+                    // just remove pattern-valid when the test is failed
 					self.removeClass('pattern-valid');
 				}
 
@@ -441,17 +447,22 @@
 
 			patterns = testMultiPatterns(el);
 
-			for (var p in patterns) {
-				count++;
-				// `data-` is removed from `data-pattern[-customName]` for class name
+			// there is no multi patterns to test
+			if (!patterns) {
+				return this;
+			}
+
+            for (var p in patterns) {
+                p = p.replace(/^data-/,'');
+                // `data-` is removed from `data-pattern[-customName]` for class name
 				// eg: <input data-pattern-numbers="/^\d{1,}$/">
 				//     depends on the outcome of the value, the class names are
 				// `.pattern-numbers-valid` and `.pattern-numbers-invalid`
-				if (patterns[p]) {
-					p = p.replace(/^data-/,'');
+                if (el.val() === '') {
+                    self.removeClass(p + '-valid ' + p + '-invalid');
+                } else if (patterns['data-' + p]) {
 					self.addClass(p + '-valid').removeClass(p + '-invalid');
 				} else {
-					p = p.replace(/^data-/,'');
 					self.addClass(p + '-invalid').removeClass(p + '-valid');
 					isAllValid = false;
 				}
@@ -459,7 +470,10 @@
 
 			// if all patterns passed, `.pattern-valid` is added
 			// otherwise if any of the pattern failed, `.pattern-invalid` is added when `done` is `true`
-			if (isAllValid && done) {
+            if (el.val() ==='') {
+                // reset classes when value is empty
+                self.removeClass('pattern-valid pattern-invalid');
+            } else if (isAllValid && done) {
 				self.addClass('pattern-valid').removeClass('pattern-invalid');
 			} else if (done) {
 				self.addClass('pattern-invalid').removeClass('pattern-valid');
