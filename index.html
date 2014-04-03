@@ -28,7 +28,7 @@
           <label class="large-5 columns" for="name"> Name </label>
           <div class="large-7 columns">  
             <input name="name" pattern="^[A-z\s]+$" id="name" required> 
-            <div class="smartform">
+            <div class="sfm">
               <div class="focus">This message show when the field in focus.</div>
               <div class="required">This is a required field.</div>
               <div class="pattern-invalid">Oops. You have entered non-alphabet character.</div>
@@ -52,7 +52,7 @@
             data-pattern-size="^.{6,10}$"
             data-pattern-allow-chars="^[A-z0-9$%.#]+$">
 
-            <div class="smartform">
+            <div class="sfm">
               <div class="required">This field is required</div>
               <ul class="validation">
                 <li class="pattern-uppercase"> At least 1 upper case letter </li>
@@ -75,7 +75,7 @@
           <input name="password-verify"  required id="password-again"
             data-smartform-match="password">
 
-            <div class="smartform">
+            <div class="sfm">
               <div class="required">This field is required</div>
               <div class="matched">Password is matched</div>
               <div class="not-matched">Password is not matched</div>
@@ -87,7 +87,7 @@
           <label class="large-5 columns" > Checkbox  </label>
           <div class="large-7 columns">  
             <input name="choice1" type="checkbox" value="choice 1" > Choice 1 <br/>
-            <div class="smartform">
+            <div class="sfm">
               <div class="checked">checked</div>
               <div class="not-checked">unchecked</div>
             </div>
@@ -98,7 +98,7 @@
           <label class="large-5 columns" > Required Checkbox  </label>
           <div class="large-7 columns">  
             <input required name="choice2" type="checkbox" value="choice 2" > Must check this box <br/>
-            <div class="smartform">
+            <div class="sfm">
               <div class="checked">checked</div>
               <div class="not-checked">unchecked</div>
               <div class="required">You must check this box</div>
@@ -113,11 +113,25 @@
           <input name="choice" type="radio" value="choice 2"> Choice 2 <br/>
           <input name="choice" type="radio" value="choice 2"> Choice 3 <br/>
          
-          <div class="smartform">
+          <div class="sfm">
             <div class="checked">This field is checked</div>
           </div>
           </div>
         </div> <!-- /row -->
+
+        <div class="row">
+            <label class="large-5 columns">
+                Multiple Checks Box
+            </label>
+            <div class="large-7 columns">
+                <input name="c[]" type="checkbox" value="choice 1" > Choice 1 <br/>
+                <input name="c[]" type="checkbox" value="choice 2"> Choice 2 <br/>
+                <input name="c[]" type="checkbox" value="choice 2"> Choice 3 <br/>
+
+                <div class="sfm">
+                    <div class="checked">This field is checked</div>
+                </div>
+        </div>
 
         <input type="submit" value="Submit">
       </form>

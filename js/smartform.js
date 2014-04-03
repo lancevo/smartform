@@ -132,7 +132,15 @@ var SmartFormValidator;
 	}
 
 	function isRequiredCheckbox(el) {
-		return !el.is(':checked');
+        var isChecked = false;
+
+        // check for array
+        if (el.attr('name').match(/\[\]/)) {
+            isChecked = form.find('input[name="'+ el.attr('name') +'"').is(':checked')
+        } else {
+            isChecked = el.is(':checked');
+        }
+		return !isChecked;
 	}
 
 	function isRequiredSelect(el) {
