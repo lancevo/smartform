@@ -3,104 +3,40 @@
 <head>
     <title>smartform demo</title>
 
-    <link href="demo/smartform.css" rel="stylesheet">
-    <style>
-        section {
-            margin-bottom: 20px;
-            padding: 20px;
-            width: 400px;
-        }
-
-        section:nth-child(odd) {
-            background: #efefef;
-        }
-        label {
-            display:block;
-            font-weight:bold;
-        }
-    </style>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="js/smartform.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $("form").smartform();
-        })
-    </script>
 
 </head>
 <body>
-<form>
-    <section>
-        <label>Text</label>
-        <input required name="message">
 
-        <div class="sfm">
-            <div class="required"> This field is required</div>
-        </div>
-    </section>
-    <section>
-        <label>Single Select </label>
-        <select required>
-            <option value="">Select something</option>
-            <option value="1">Option 1</option>
-            <option value="1">Option 2</option>
-        </select>
-
-        <div class="sfm">
-            <div class="required"> This field is required</div>
-        </div>
-    </section>
-    <section>
-        <label>Multiple Select</label>
-        <select required multiple>
-            <option value="">Select something</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </select>
-
-        <div class="sfm">
-            <div class="required"> This field is required</div>
-        </div>
-    </section>
-    <section>
-        <label>Textarea
-        </label> <textarea required></textarea>
-
-        <div class="sfm">
-            <div class="required"> This field is required</div>
-        </div>
-    </section>
-    <section>
-        <label>Single Checkbox:</label>
-
-        <input required type="checkbox" name="cb" value="1">
-
-        <div class="sfm">
-            <div class="required"> This field is required</div>
-        </div>
-    </section>
-    <section>
-        <label>Multiple Checkboxes: </label>
-        <em>value of name attribute must have [].</em><br>
-        <em>ie: &lt;input name="choices[]" required value="1"&gt;</em> <br><br>
+<p>
+* To open in a full window, click on Edit in JSFiddle on each example.
+<br>
+Source: <a href="https://github.com/lancevo/smartform" target="_blank">https://github.com/lancevo/smartform</a>
+</p>
 
 
-        1: <input required type="checkbox" name="mcb[]" value="1"> <br>
-        2: <input required type="checkbox" name="mcb[]" value="2"> <br>
-        3: <input required type="checkbox" name="mcb[]" value="2"> <br>
+<h2>required</h2>
+<iframe width="100%" height="300" src="http://jsfiddle.net/lvo811/k4H5N/embedded/result,html,js,css,resources/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-        <div class="sfm">
-            <div class="required"> This field is required</div>
-        </div>
-    </section>
+<h2>.focus & .visited</h2>
+<iframe width="100%" height="300" src="http://jsfiddle.net/lvo811/DEBLF/embedded/result,html,js,css,resources/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h2>patterns</h2>
+<iframe width="100%" height="300" src="http://jsfiddle.net/lvo811/3gZN2/embedded/result,html,js,css,resources/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+useful pattern: <br>
+<ul>
+    <li>alphabet uppercase: ^[A-Z]+$</li>
+    <li>alphabet lowercase: ^[a-z]+$</li>
+    <li>numbers : ^[\d]+$</li>
+    <li>alphanumeric and space: ^[A-z\d\s]+$</li>
+    <li>email: ^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$</li>
+</ul>
+<h2>match the value of other input field</h2>
+<iframe width="100%" height="300" src="http://jsfiddle.net/lvo811/2M45P/embedded/result,html,js,css,resources/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h2>password strength meter</h2>
+<iframe width="100%" height="300" src="http://jsfiddle.net/lvo811/8nUsb/embedded/result,html,js,css,resources/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 
-    <input type="submit" value="submit">
-</form>
 </body>
 </html>
 
