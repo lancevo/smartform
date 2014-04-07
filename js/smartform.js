@@ -137,12 +137,12 @@ var SmartFormValidator;
 		return el.val().trim() === '';
 	}
 
-	function isRequiredCheckbox(el) {
+	function isRequiredCheckbox(el,form) {
         var isChecked = false;
 
         // check for array
         if (el.attr('name').match(/\[\]/)) {
-            isChecked = form.find('input[name="'+ el.attr('name') +'"').is(':checked')
+            isChecked = form.find('input[name="'+ el.attr('name') +'"]').is(':checked')
         } else {
             isChecked = el.is(':checked');
         }
@@ -176,7 +176,7 @@ var SmartFormValidator;
 
 	// @return true : if the value is empty or not selected / checked
 	//         false : passed the required requirement
-	function isRequired(el) {
+	function isRequired(el,form) {
 		var type = el.attr('type') || el[0].nodeName.toLowerCase();
 		var b;
 
@@ -185,7 +185,7 @@ var SmartFormValidator;
 		}
 		switch (type) {
 			case 'checkbox' :
-				b = isRequiredCheckbox(el);
+				b = isRequiredCheckbox(el,form);
 				break;
 
 			case 'select' :
@@ -403,7 +403,7 @@ var SmartFormValidator;
 
 
 		self.required = function() {
-			if (isRequired(el)) {
+			if (isRequired(el,form)) {
 				self.addClass('required');
 			} else {
 				self.removeClass('required');
