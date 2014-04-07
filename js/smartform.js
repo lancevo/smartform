@@ -25,8 +25,9 @@ var SmartFormValidator;
 			// so it doesn't conflict with smartform validator
 			form.attr('novalidate','novalidate');
 
-			form.on('submit', function(e){
-				var isFormValid = true;
+			form.on('submit', function(ev){
+				var isFormValid = true,
+                    firstInvalidInput;
 
 				form.find(':input, select').each(function(){
 					var el = $(this),
@@ -54,18 +55,23 @@ var SmartFormValidator;
 
 					if (klasses.match(/(required|invalid)/g)) {
 						isFormValid = false;
+                        if (!firstInvalidInput) {
+                            firstInvalidInput = el;
+                        }
 					}
 				}); // form.find();
 
 
 				if (!isFormValid) {
 					form.addClass('submit-invalid');
-					e.preventDefault();
+                    ev.preventDefault();
+                    // scroll to first invalid input
+                    $('html,body').animate({scrollTop: firstInvalidInput.offset().top - 25}, 800);
 				}
 
 				// callback
 				if (formFn) {
-					formFn(e, form);
+					formFn(ev, form);
 				}
 
 				return isFormValid;
@@ -85,10 +91,10 @@ var SmartFormValidator;
 					elFn = el.attr('data-smartform-fn') ? $.trim(el.attr('data-smartform-fn')) : undefined; // individual input field callback
 
 
-				el.on('keyup change focusin focusout', function(e){
+				el.on('keyup change focusin focusout', function(ev){
 
 
-					switch(e.type) {
+					switch(ev.type) {
 						case 'keyup':
 							validator.match(false).testPattern(false);
 							break;
@@ -114,7 +120,7 @@ var SmartFormValidator;
 
 					// callback
 					if (elFn) {
-						eval(elFn + '(e, el, form, validator)');
+						eval(elFn + '(ev, el, form, validator)');
 					}
 
 				}); // on(..)
